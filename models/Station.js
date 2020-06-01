@@ -6,7 +6,7 @@ const StationShema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    country: {
+    name: {
         type: String,
         required: true
     },

@@ -1,0 +1,28 @@
+import {
+  GET_ALL_STATIONS,
+  STATION_ERROR,
+  SET_POSITION,
+  SET_MAP_ZOOM,
+  SET_CURRENT_STATION,
+} from "../types";
+
+export default (state, action) => {
+  switch (action.type) {
+    case GET_ALL_STATIONS:
+      return { ...state, stations: action.payload, loading: false };
+    case SET_POSITION:
+      return { ...state, position: action.payload, loading: false };
+    case SET_MAP_ZOOM:
+      return { ...state, zoom: action.payload, loading: false };
+    case SET_CURRENT_STATION:
+      return { ...state, station: action.payload, loading: false };
+
+    case STATION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

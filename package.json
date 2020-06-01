@@ -1,7 +1,7 @@
 {
   "name": "contact_keeper",
   "version": "1.0.0",
-  "description": "Contact keeper simple MERN application",
+  "description": "EV",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

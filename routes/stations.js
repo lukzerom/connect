@@ -18,7 +18,7 @@ const moment = MomentRange.extendMoment(Moment);
 
 router.get('/', async (req, res) => {
   try {
-    const stations = await Station.find({}).sort({});
+    const stations = await Station.find({}).select('-user').sort({});
     res.json(stations);
   } catch (err) {
     console.error(err.message);

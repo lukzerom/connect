@@ -9,6 +9,7 @@ import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import Rating from "@material-ui/lab/Rating";
 import StationContext from "../../context/stations/stationContext";
 import ChargerIcon from "./ChargerIcon";
+import Extras from "../layout/Extras";
 
 import {
   Container,
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   rating: {
     verticalAlign: "middle",
     marginLeft: "1rem",
+  },
+  extrasBox: {
+    display: "flex",
   },
 }));
 
@@ -158,55 +162,11 @@ const ChargerDetails = () => {
             <Typography color="textSecondary" gutterBottom>
               Dodatkowo:
             </Typography>
-
-            <Grid container spacing={3}>
-              <Grid item xs={4}>
-                <Typography
-                  className={classes.subtitle}
-                  variant="subtitle2"
-                  color="textSecondary"
-                  gutterBottom
-                  fontWeight="fontWeightBold"
-                >
-                  <LocalCafeIcon className={classes.icon} /> Kawa
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography
-                  className={classes.subtitle}
-                  variant="subtitle2"
-                  color="textSecondary"
-                  gutterBottom
-                  fontWeight="fontWeightBold"
-                >
-                  <DirectionsBikeIcon className={classes.icon} />
-                  Rower
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography
-                  className={classes.subtitle}
-                  variant="subtitle2"
-                  color="textSecondary"
-                  gutterBottom
-                  fontWeight="fontWeightBold"
-                >
-                  <DirectionsBikeIcon className={classes.icon} />
-                  Rower
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography
-                  className={classes.subtitle}
-                  variant="subtitle2"
-                  color="textSecondary"
-                  gutterBottom
-                  fontWeight="fontWeightBold"
-                >
-                  <DirectionsBusIcon className={classes.icon} /> Przystanek
-                </Typography>
-              </Grid>
-            </Grid>
+            <Box className={classes.extrasBox}>
+              {station.additives.map((extra, index) => {
+                return <Extras key={index} extra={extra} />;
+              })}
+            </Box>
             <Divider variant="middle" className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={4}>

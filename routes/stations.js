@@ -26,11 +26,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/stations
+// @route GET api/stations/userstations
 // @desc Get all user statios
 // @access Private
 
-router.get('/', auth, async (req, res) => {
+router.get('/userstations', auth, async (req, res) => {
   try {
     const stations = await Station.find({
       user: req.user.id

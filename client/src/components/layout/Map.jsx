@@ -20,7 +20,6 @@ const ChargerMap = () => {
   }, []);
 
   const { stations, getStations } = stationContext;
-  console.log(stations);
 
   return (
     <div className="map-container">

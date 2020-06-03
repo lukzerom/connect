@@ -16,6 +16,7 @@ import MyVehicles from "./components/pages/MyVehicles";
 import MyStations from "./components/pages/MyStations";
 import MyReservations from "./components/pages/MyReservations";
 import ChargersMap from "./components/pages/ChargersMap";
+import AddStation from "./components/pages/AddStation";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -35,6 +36,7 @@ function App() {
                 <PrivateRoute path="/dashboard" component={Dashboard} />
                 <PrivateRoute path="/my-vehicles" component={MyVehicles} />
                 <PrivateRoute path="/my-stations" component={MyStations} />
+                <PrivateRoute path="/add-station" component={AddStation} />
                 <PrivateRoute
                   path="/my-reservations"
                   component={MyReservations}

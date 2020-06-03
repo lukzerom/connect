@@ -27,17 +27,17 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="American standard plugin icon "
           />
-          <Typography>American standard</Typography>{" "}
+          <Typography align="center">American standard</Typography>{" "}
         </>
       );
     case "Euro_standard":
       return (
         <>
           <img src={Euro} style={imgStyle} alt="Euro standard plugin icon" />
-          <Typography>Euro standard</Typography>{" "}
+          <Typography align="center">Euro standard</Typography>{" "}
         </>
       );
-    case "Tesla_supercharger":
+    case "Tesla_Supercharger":
       return (
         <>
           <img
@@ -45,28 +45,28 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="Tesla supercharger plugin icon "
           />{" "}
-          <Typography>Tesla Supercharger</Typography>
+          <Typography align="center">Tesla Supercharger</Typography>
         </>
       );
     case "CHAdeMO":
       return (
         <>
           <img src={CHAdeMO} style={imgStyle} alt="CHAdeMO plugin icon" />{" "}
-          <Typography>CHAdeMO</Typography>
+          <Typography align="center">CHAdeMO</Typography>
         </>
       );
     case "DB_T":
       return (
         <>
           <img src={DB_T} style={imgStyle} alt="DB T plugin icon" />
-          <Typography>DB T </Typography>
+          <Typography align="center">DB T </Typography>
         </>
       );
     case "GB_T_DC":
       return (
         <>
           <img src={GB_T_DC} style={imgStyle} alt="GB T DC plugin icon" />
-          <Typography>GB T DC </Typography>
+          <Typography align="center">GB T DC </Typography>
         </>
       );
     case "Type1_CSS_Combo1":
@@ -77,7 +77,7 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="Type1 CSS Combo1 plugin icon"
           />
-          <Typography>Type1 CSS Combo1</Typography>
+          <Typography align="center">Type1 CSS Combo1</Typography>
         </>
       );
     case "Type1_J1772":
@@ -88,7 +88,7 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="Type1 J1772 plugin icon"
           />
-          <Typography>Type1 J1772 </Typography>{" "}
+          <Typography align="center">Type1 J1772 </Typography>{" "}
         </>
       );
     case "Type2_css_combo2":
@@ -99,7 +99,7 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="Type2 css combo2 plugin icon"
           />
-          <Typography>Type2 CSS combo2</Typography>
+          <Typography align="center">Type2 CSS combo2</Typography>
         </>
       );
     case "Type2_Mennekes":
@@ -110,7 +110,7 @@ const ChargerIcon = ({ plugin }) => {
             style={imgStyle}
             alt="Type2 Mennekes plugin icon"
           />
-          <Typography>Type2 Mennekes</Typography>
+          <Typography align="center">Type2 Mennekes</Typography>
         </>
       );
 

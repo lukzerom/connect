@@ -4,6 +4,9 @@ import {
   SET_POSITION,
   SET_MAP_ZOOM,
   SET_CURRENT_STATION,
+  GET_USER_STATIONS,
+  SET_MARKER_POSITION,
+  ADD_STATION,
 } from "../types";
 
 export default (state, action) => {
@@ -16,6 +19,16 @@ export default (state, action) => {
       return { ...state, zoom: action.payload, loading: false };
     case SET_CURRENT_STATION:
       return { ...state, station: action.payload, loading: false };
+    case GET_USER_STATIONS:
+      return { ...state, userstations: action.payload, loading: false };
+    case SET_MARKER_POSITION:
+      return { ...state, markerPosition: action.payload, loading: false };
+    case ADD_STATION:
+      return {
+        ...state,
+        stations: [action.payload, ...state.stations],
+        loading: false,
+      };
 
     case STATION_ERROR:
       return {

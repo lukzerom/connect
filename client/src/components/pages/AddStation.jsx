@@ -2,7 +2,9 @@ import React, { useEffect, useContext, useState } from "react";
 import AuthContext from "../../context/auth/authContext";
 import setAuthToken from "../../utils/setAuthToken";
 import StationContext from "../../context/stations/stationContext";
+import AlertContext from "../../context/alert/alertContext";
 import axios from "axios";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
   Box,
   Grid,
@@ -22,6 +24,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
 import { GOOGLE_API_KEY } from "../API/API_KEYS";
+import { SET_ALERT } from "../../context/types";
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: "2rem",
     width: "100%",
-    height: "80vh",
+    height: "90vh",
     display: "flex",
     justifyContent: "space-around",
   },
@@ -64,17 +67,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddStation = () => {
+const AddStation = (props) => {
   const charger = "Charger";
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
+  const alertContext = useContext(AlertContext);
   const classes = useStyles();
 
   const { isAuthenticated, logout, user, token } = authContext;
+  const { setAlert } = alertContext;
   const {
     userstations,
     getUserStations,
     markerPosition,
+
     setMarkerPosition,
     addStation,
   } = stationContext;
@@ -92,8 +98,8 @@ const AddStation = () => {
     streetName: "",
     streetNumber: "",
     pictureUrl: "",
-    longitude: 54.5926,
-    latitude: 18.810773,
+    longitude: 0,
+    latitude: 0,
     price: 0,
     plugin: "",
     extras: [],
@@ -102,6 +108,7 @@ const AddStation = () => {
     bike: false,
     coffee: false,
     bus: false,
+    errors: false,
   });
 
   const {
@@ -120,6 +127,7 @@ const AddStation = () => {
     bike,
     coffee,
     bus,
+    errors,
   } = state;
 
   const onChange = (e) => {
@@ -159,7 +167,20 @@ const AddStation = () => {
     if (bike) extras.push("Bike");
     if (coffee) extras.push("Coffee");
     if (bus) extras.push("Bus");
-    console.log(markerPosition);
+
+    if (
+      !name ||
+      !country ||
+      !city ||
+      !streetName ||
+      !streetNumber ||
+      !price ||
+      !plugin
+    ) {
+      setState({ ...state, errors: true });
+      return setAlert("Please provide required informations", "error");
+    }
+
     const station = {
       name,
       country,
@@ -175,6 +196,26 @@ const AddStation = () => {
     };
 
     addStation(station);
+
+    props.history.push("/my-stations");
+    setState({
+      name: "",
+      country: "",
+      city: "",
+      streetName: "",
+      streetNumber: "",
+      pictureUrl: "",
+      longitude: 0,
+      latitude: 0,
+      price: 0,
+      plugin: "",
+      extras: [],
+      drive: false,
+      bed: false,
+      bike: false,
+      coffee: false,
+      bus: false,
+    });
   };
 
   return (
@@ -193,6 +234,7 @@ const AddStation = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleSubmit}
+                    startIcon={<AddCircleIcon />}
                   >
                     Add station
                   </Button>
@@ -207,10 +249,12 @@ const AddStation = () => {
                   onChange={onChange}
                   variant="outlined"
                   fullWidth
+                  error={errors && !name}
                 />
                 <Box className={classes.inputs}>
                   <TextField
                     required
+                    error={errors && !country}
                     id="outlined-required"
                     label="Country"
                     name="country"
@@ -220,6 +264,7 @@ const AddStation = () => {
                   />
                   <TextField
                     required
+                    error={errors && !city}
                     id="outlined-required"
                     label="City"
                     name="city"
@@ -231,6 +276,7 @@ const AddStation = () => {
                 <Box className={classes.inputs}>
                   <TextField
                     required
+                    error={errors && !streetName}
                     id="outlined-required"
                     label="Street Name"
                     name="streetName"
@@ -240,6 +286,7 @@ const AddStation = () => {
                   />
                   <TextField
                     required
+                    error={errors && !streetNumber}
                     id="outlined-required"
                     label="Street Number"
                     name="streetNumber"
@@ -274,8 +321,11 @@ const AddStation = () => {
                     variant="outlined"
                     className={classes.formControl}
                   >
-                    <InputLabel id="charger-type">Charger</InputLabel>
+                    <InputLabel required id="charger-type">
+                      Charger
+                    </InputLabel>
                     <Select
+                      error={errors && !plugin}
                       labelId="charger-type"
                       id="charger-type"
                       label="Charger"

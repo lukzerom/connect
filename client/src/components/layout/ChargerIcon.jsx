@@ -19,7 +19,7 @@ const imgStyle = {
 
 const ChargerIcon = ({ plugin }) => {
   switch (plugin) {
-    case "American_standard":
+    case "American_Standard":
       return (
         <>
           <img
@@ -30,7 +30,7 @@ const ChargerIcon = ({ plugin }) => {
           <Typography align="center">American standard</Typography>{" "}
         </>
       );
-    case "Euro_standard":
+    case "Euro_Standard":
       return (
         <>
           <img src={Euro} style={imgStyle} alt="Euro standard plugin icon" />

@@ -11,6 +11,8 @@ import {
   GET_USER_STATIONS,
   SET_MARKER_POSITION,
   ADD_STATION,
+  SET_EDIT_STATION,
+  EDIT_STATION,
 } from "../types";
 import { set } from "mongoose";
 
@@ -23,6 +25,8 @@ const StationState = (props) => {
     pickedStation: null,
     userstations: null,
     markerPosition: [50.270873, 16.25341],
+    editStation: null,
+    station: null,
   };
 
   const [state, dispatch] = useReducer(stationReducer, initialState);
@@ -35,6 +39,14 @@ const StationState = (props) => {
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });
     }
+  };
+
+  //Get choosen station
+  const setEditStation = (stat) => {
+    dispatch({
+      type: SET_EDIT_STATION,
+      payload: stat,
+    });
   };
 
   //Set map position
@@ -94,6 +106,27 @@ const StationState = (props) => {
     }
   };
 
+  //Update contact
+
+  const updateStation = async (station) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.put(
+        `/api/stations/${station.id}`,
+        station,
+        config
+      );
+      dispatch({ type: EDIT_STATION, payload: res.data });
+    } catch (err) {
+      dispatch({ type: STATION_ERROR, payload: err.res.msg });
+    }
+  };
+
   return (
     <StationContext.Provider
       value={{
@@ -110,6 +143,9 @@ const StationState = (props) => {
         setMarkerPosition: setMarkerPosition,
         markerPosition: state.markerPosition,
         addStation: addStation,
+        editStation: state.editStation,
+        setEditStation: setEditStation,
+        updateStation: updateStation,
       }}
     >
       {props.children}

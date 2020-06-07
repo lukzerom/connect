@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import ChargerIcon from "../layout/ChargerIcon";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import Extras from "../layout/Extras";
+import StationContext from "../../context/stations/stationContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: "flex",
     flexDirection: "row",
-    height: "5rem",
+    height: "80%",
     justifyContent: "space-between",
   },
 
@@ -52,6 +54,19 @@ const useStyles = makeStyles((theme) => ({
 
 const UserStation = ({ station }) => {
   const classes = useStyles();
+  const stationContext = useContext(StationContext);
+  const { setEditStation, userstations } = stationContext;
+
+  const handleEdit = (id) => {
+    let station = userstations.filter((station) => {
+      console.log(station._id);
+      return station._id === id;
+    });
+
+    let pickedStation = station[0];
+
+    setEditStation(pickedStation);
+  };
 
   return (
     <div>
@@ -78,9 +93,18 @@ const UserStation = ({ station }) => {
                 <Typography variant="h2">{station.price} zł/h</Typography>
               </Box>
               <Box className={classes.box}>
-                <Button variant="contained" color="primary">
-                  Edit
-                </Button>
+                <Link
+                  to="/edit-station"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleEdit(station._id)}
+                  >
+                    Edit
+                  </Button>
+                </Link>
                 <Button variant="contained" color="secondary">
                   Delete
                 </Button>

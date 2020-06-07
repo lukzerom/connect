@@ -7,6 +7,9 @@ import {
   GET_USER_STATIONS,
   SET_MARKER_POSITION,
   ADD_STATION,
+  EDIT_STATION_CHOOSEN,
+  SET_EDIT_STATION,
+  EDIT_STATION,
 } from "../types";
 
 export default (state, action) => {
@@ -23,7 +26,18 @@ export default (state, action) => {
       return { ...state, userstations: action.payload, loading: false };
     case SET_MARKER_POSITION:
       return { ...state, markerPosition: action.payload, loading: false };
+
+    case SET_EDIT_STATION:
+      return { ...state, editStation: action.payload, loading: false };
+
     case ADD_STATION:
+      return {
+        ...state,
+        stations: [action.payload, ...state.stations],
+        loading: false,
+      };
+
+    case EDIT_STATION:
       return {
         ...state,
         stations: [action.payload, ...state.stations],

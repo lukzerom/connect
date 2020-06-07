@@ -12,6 +12,27 @@ const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
 
+
+
+
+// @route GET api/stations/:id
+// @desc Get choosen station
+// @access Private
+
+router.get('/stations/:id', auth, async (req, res) => {
+
+  try {
+    const station = await Station.find({
+      id: req.params.id
+    })
+    res.json(station);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
 // @route GET api/stations
 // @desc Get all statios
 // @access Public
@@ -43,6 +64,8 @@ router.get('/userstations', auth, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+
 
 // @route POST api/stations
 // @desc Add station

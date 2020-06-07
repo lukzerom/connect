@@ -146,13 +146,17 @@ const AddStation = (props) => {
 
   const getLatLang = async () => {
     const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+${country}&key=${GOOGLE_API_KEY}`;
+    console.log(URL);
     delete axios.defaults.headers.common["x-auth-token"];
     try {
       const res = await axios.get(URL);
       let geocode = res.data;
-      const latlang = geocode.results[0].access_points[0].location;
-      console.log(res.data);
-      setMarkerPosition([latlang.latitude, latlang.longitude]);
+      console.log(geocode);
+      const results = geocode.results[0];
+      console.log(results);
+      const latlang = results.geometry.location;
+      console.log(latlang);
+      setMarkerPosition([latlang.lat, latlang.lng]);
     } catch (err) {
       console.log(err.msg);
     }

@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
     backgroundColor: "#f5f5f5",
     minHeight: "100vh",
+    padding: "0 10vw",
   },
   topPanel: {
     display: "flex",
@@ -49,7 +50,9 @@ const MyStations = () => {
 
       <Divider />
       {userstations === null ? (
-        <Typography variant="h1">Nie posiadasz jeszcze stacji</Typography>
+        <Typography variant="h6" align="center">
+          Nie posiadasz jeszcze stacji
+        </Typography>
       ) : (
         userstations.map((station) => {
           return <UserStation key={station._id} station={station} />;

@@ -19,3 +19,12 @@ export const ADD_STATION = 'ADD_STATION'
 export const SET_EDIT_STATION = 'SET_EDIT_STATION'
 export const EDIT_STATION = 'EDIT_STATION'
 export const DELETE_STATION = 'DELETE_STATION'
+
+//Car context
+
+export const GET_USER_CARS = "GET_USER_CARS"
+export const ADD_CAR = "ADD_CAR"
+export const EDIT_CAR = "EDIT_CAR"
+export const DELETE_CAR = "DELETE_CAR"
+export const CAR_ERROR = "CAR_ERROR"
+export const SET_CURRENT_CAR = "SET_CURRENT_CAR"

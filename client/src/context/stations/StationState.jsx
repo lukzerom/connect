@@ -13,6 +13,7 @@ import {
   ADD_STATION,
   SET_EDIT_STATION,
   EDIT_STATION,
+  DELETE_STATION,
 } from "../types";
 import { set } from "mongoose";
 
@@ -26,7 +27,6 @@ const StationState = (props) => {
     userstations: null,
     markerPosition: [50.270873, 16.25341],
     editStation: null,
-    station: null,
   };
 
   const [state, dispatch] = useReducer(stationReducer, initialState);
@@ -106,7 +106,7 @@ const StationState = (props) => {
     }
   };
 
-  //Update contact
+  //Update station
 
   const updateStation = async (station) => {
     const config = {
@@ -122,6 +122,15 @@ const StationState = (props) => {
         config
       );
       dispatch({ type: EDIT_STATION, payload: res.data });
+    } catch (err) {
+      dispatch({ type: STATION_ERROR, payload: err.res.msg });
+    }
+  };
+
+  const deleteStation = async (id) => {
+    try {
+      await axios.delete(`/api/stations/${id}`);
+      dispatch({ type: DELETE_STATION, payload: id });
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });
     }
@@ -146,6 +155,7 @@ const StationState = (props) => {
         editStation: state.editStation,
         setEditStation: setEditStation,
         updateStation: updateStation,
+        deleteStation: deleteStation,
       }}
     >
       {props.children}

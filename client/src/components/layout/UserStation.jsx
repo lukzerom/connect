@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const UserStation = ({ station }) => {
   const classes = useStyles();
   const stationContext = useContext(StationContext);
-  const { setEditStation, userstations } = stationContext;
+  const { setEditStation, userstations, deleteStation } = stationContext;
 
   const handleEdit = (id) => {
     let station = userstations.filter((station) => {
@@ -66,6 +66,10 @@ const UserStation = ({ station }) => {
     let pickedStation = station[0];
 
     setEditStation(pickedStation);
+  };
+
+  const handleDelete = (id) => {
+    deleteStation(id);
   };
 
   return (
@@ -105,7 +109,11 @@ const UserStation = ({ station }) => {
                     Edit
                   </Button>
                 </Link>
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDelete(station._id)}
+                >
                   Delete
                 </Button>
               </Box>

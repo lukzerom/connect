@@ -10,6 +10,7 @@ import {
   EDIT_STATION_CHOOSEN,
   SET_EDIT_STATION,
   EDIT_STATION,
+  DELETE_STATION,
 } from "../types";
 
 export default (state, action) => {
@@ -48,6 +49,15 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+
+    case DELETE_STATION:
+      return {
+        ...state,
+        userstations: state.userstations.filter(
+          (station) => station._id !== action.payload
+        ),
+        loading: false,
       };
     default:
       return state;

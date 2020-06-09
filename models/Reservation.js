@@ -21,6 +21,22 @@ const ReservationShema = mongoose.Schema({
   },
   timeStampTo: {
     type: String
+  },
+
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users'
+  },
+  fullPrice: {
+    type: Number
+  },
+  isOwnerAccepted: {
+    type: Boolean,
+    default: false
+  },
+  isOwnerRejected: {
+    type: Boolean,
+    default: false
   }
 });
 

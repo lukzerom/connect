@@ -23,15 +23,17 @@ const ChargerMap = () => {
     setZoom,
     zoom,
     setStation,
+    getAvailableStations,
+    avaiableStations,
   } = stationContext;
   useEffect(() => {
-    getStations();
+    getAvailableStations();
     //eslint-disable-next-line
   }, []);
 
   const changePosition = (e) => {
     animateflag = true;
-    let pickedStation = stations.filter(
+    let pickedStation = avaiableStations.filter(
       (station) => station._id == e.target.options.id
     );
 
@@ -48,7 +50,6 @@ const ChargerMap = () => {
   };
 
   const onViewportChanged = (viewport) => {
-    console.log(viewport.center);
     setZoom(viewport.zoom);
     setPosition(viewport.center);
     animateflag = false;
@@ -70,8 +71,8 @@ const ChargerMap = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {stations !== null
-          ? stations.map((station) => {
+        {avaiableStations !== null
+          ? avaiableStations.map((station) => {
               return (
                 <Marker
                   key={station._id}

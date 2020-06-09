@@ -4,6 +4,7 @@ import AuthContext from "../../context/auth/authContext";
 import ProtectedMap from "../layout/ProtectedMap";
 import ChargerDetails from "../layout/ChargerDetails";
 import { Grid } from "@material-ui/core";
+import DatePickerDialog from "../layout/DatePickerDialog";
 
 const ChargersMap = () => {
   const authContext = useContext(AuthContext);
@@ -23,6 +24,7 @@ const ChargersMap = () => {
   const { isAuthenticated, logout, user } = authContext;
   return (
     <Grid container direction="row">
+      <DatePickerDialog />
       <Grid item xs={12} sm={7}>
         <ProtectedMap />
       </Grid>

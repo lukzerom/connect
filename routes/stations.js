@@ -65,7 +65,72 @@ router.get('/userstations', auth, async (req, res) => {
   }
 });
 
+// @route GET api/stations/availablestations
+// @desc Get available stations 
+// @access Pubilc
 
+router.get('/availablestations/:from/:to', async (req, res) => {
+
+  const {
+    from,
+    to
+  } = req.params
+
+
+  const userRange = moment.range(
+    moment(Number(from)),
+    moment(Number(to))
+  );
+  const stations = await Station.find({})
+  let stationReservations = await Reservation.find({});
+
+  //Getting all ID's of station reservations in this range of time
+  let takenStationsAll = stationReservations.map(reservation => {
+    let bookingTimeStampFrom = moment(new Date(reservation.timeStampFrom));
+    let bookingTimeStampTo = moment(new Date(reservation.timeStampTo));
+    let strangerRange = moment.range(
+      bookingTimeStampFrom,
+      bookingTimeStampTo
+    );
+
+    console.log(userRange, strangerRange)
+
+    if (userRange.overlaps(strangerRange)) {
+      return reservation.station.toString()
+    }
+  });
+
+  //Reducing the same values
+
+  let takenStations = [...new Set(takenStationsAll)]
+
+  //Comparing taken stations ID with all stations
+  let comparedStations = stations.map(station => {
+    return takenStations.map(takenStation => {
+      if (((station._id.toString()) !== takenStation)) {
+        return station
+      }
+    })
+
+  });
+
+  //Reducing nested arrays from double map
+  let array = []
+  comparedStations.forEach(station => {
+
+    array.push(station[0])
+  })
+
+  //Removing nulls
+  let availablestations = array.filter((obj) => obj);
+
+  try {
+    res.json(availablestations);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 // @route POST api/stations
 // @desc Add station
@@ -247,125 +312,6 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-// @route PAST api/stations/booking/:id
-// @desc Book a station
-// @access Private
 
-router.post('/booking/:id', [auth], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      errors: errors.array()
-    });
-  }
-
-  let station = await Station.findById(req.params.id);
-
-  let stationReservations = await Reservation.find({
-    station: station._id
-  });
-  const {
-    timeStampFrom,
-    timeStampTo
-  } = req.body;
-
-  //Calculate user range
-
-  const userRange = moment.range(
-    moment(new Date(timeStampFrom)),
-    moment(new Date(timeStampTo))
-  );
-
-  //Get user
-
-  const user = await User.findById(req.user.id).select('-password');
-
-  //Make sure that dates are not overlapping
-
-  stationReservations.forEach(reservation => {
-    let bookingTimeStampFrom = moment(new Date(reservation.timeStampFrom));
-    let bookingTimeStampTo = moment(new Date(reservation.timeStampTo));
-    const strangerRange = moment.range(
-      bookingTimeStampFrom,
-      bookingTimeStampTo
-    );
-
-    if (userRange.overlaps(strangerRange)) {
-      return res.status(400).json({
-        msg: 'This time is already reserved'
-      });
-    }
-  });
-
-  //Make sure user does not book his own station
-  if (station.user.toString() === req.user.id) {
-    return res.status(400).json({
-      msg: "Can't book your station"
-    });
-  }
-
-  //Calculate how many electrons will be needed to transaction
-
-  const requiredElectrons = userRange.diff('hours') * station.price;
-
-  //Make sure user has electrons for transaction
-
-  if (user.electrons <= requiredElectrons) {
-    return res.status(402).json({
-      msg: 'You dont have enough electrons'
-    });
-  }
-
-  //Create object for user with new amount of electrons
-  const userElectrons = user.electrons - requiredElectrons;
-
-  const userFields = {
-    electrons: userElectrons
-  };
-
-  //Get owner of station
-  const owner = await User.findById(station.user).select('-password');
-
-  const ownerElectrons = owner.electrons + requiredElectrons;
-
-  const ownerFields = {
-    electrons: ownerElectrons
-  };
-
-  //Inside try, firstly reservation must be done. Then the electrons are settled between users
-
-  try {
-    const newReservation = new Reservation({
-      timeStampFrom,
-      timeStampTo,
-      user: req.user.id,
-      station: station._id
-    });
-
-    const reservation = await newReservation.save();
-    await User.findByIdAndUpdate(
-      req.user.id, {
-        $set: userFields
-      }, {
-        new: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-      }
-    );
-    await User.findByIdAndUpdate(
-      owner._id, {
-        $set: ownerFields
-      }, {
-        new: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-      }
-    );
-    res.json(reservation);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error ');
-  }
-});
 
 module.exports = router;

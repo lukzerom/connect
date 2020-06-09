@@ -11,12 +11,15 @@ import {
   SET_EDIT_STATION,
   EDIT_STATION,
   DELETE_STATION,
+  GET_AVAIABLE_STATIONS,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
     case GET_ALL_STATIONS:
       return { ...state, stations: action.payload, loading: false };
+    case GET_AVAIABLE_STATIONS:
+      return { ...state, avaiableStations: action.payload, loading: false };
     case SET_POSITION:
       return { ...state, position: action.payload, loading: false };
     case SET_MAP_ZOOM:

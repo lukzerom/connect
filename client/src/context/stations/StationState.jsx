@@ -14,12 +14,14 @@ import {
   SET_EDIT_STATION,
   EDIT_STATION,
   DELETE_STATION,
+  GET_AVAIABLE_STATIONS,
 } from "../types";
 import { set } from "mongoose";
 
 const StationState = (props) => {
   const initialState = {
     stations: null,
+    avaiableStations: null,
     error: null,
     position: [50.270873, 16.25341],
     zoom: 5,
@@ -36,6 +38,21 @@ const StationState = (props) => {
     try {
       const res = await axios.get("/api/stations");
       dispatch({ type: GET_ALL_STATIONS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: STATION_ERROR, payload: err.res.msg });
+    }
+  };
+
+  //Get available stations in picked time range
+
+  const getAvailableStations = async (from, to) => {
+    if (from === null) from = new Date().setMinutes(0);
+    if (to === null) to = new Date().setMinutes(0);
+    try {
+      const res = await axios.get(
+        `/api/stations/availablestations/${from}/${to}`
+      );
+      dispatch({ type: GET_AVAIABLE_STATIONS, payload: res.data });
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });
     }
@@ -91,7 +108,6 @@ const StationState = (props) => {
   };
 
   const addStation = async (station) => {
-    console.log(station);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -156,6 +172,8 @@ const StationState = (props) => {
         setEditStation: setEditStation,
         updateStation: updateStation,
         deleteStation: deleteStation,
+        avaiableStations: state.avaiableStations,
+        getAvailableStations,
       }}
     >
       {props.children}

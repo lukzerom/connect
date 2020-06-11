@@ -77,10 +77,17 @@ router.get('/availablestations/:from/:to', async (req, res) => {
   } = req.params
 
 
+
+  const fromDate = new Date(Number(from))
+  const toDate = new Date(Number(to))
+
+
   const userRange = moment.range(
-    moment(Number(from)),
-    moment(Number(to))
+    moment(fromDate),
+    moment(toDate)
   );
+
+
   const stations = await Station.find({})
   let stationReservations = await Reservation.find({});
 
@@ -93,36 +100,45 @@ router.get('/availablestations/:from/:to', async (req, res) => {
       bookingTimeStampTo
     );
 
-    console.log(userRange, strangerRange)
+
 
     if (userRange.overlaps(strangerRange)) {
       return reservation.station.toString()
+    } else {
+      return null
     }
   });
 
-  //Reducing the same values
+  // Removing nulls
+  takenStationsAll = takenStationsAll.filter(station => station !== null)
 
+  //Removing duplicates
   let takenStations = [...new Set(takenStationsAll)]
 
-  //Comparing taken stations ID with all stations
-  let comparedStations = stations.map(station => {
-    return takenStations.map(takenStation => {
-      if (((station._id.toString()) !== takenStation)) {
-        return station
-      }
-    })
-
-  });
-
-  //Reducing nested arrays from double map
-  let array = []
-  comparedStations.forEach(station => {
-
-    array.push(station[0])
+  //Getting all stations ID
+  let stationsIds = stations.map(station => {
+    return String(station._id)
   })
 
-  //Removing nulls
-  let availablestations = array.filter((obj) => obj);
+  //Return only available stations 
+  let availablestationsIds = stationsIds.map(stationId => {
+    if (!takenStations.includes(stationId)) {
+      return stationId
+    }
+  })
+
+  //Removing undefineds
+  availablestationsIds = availablestationsIds.filter(obj => obj)
+
+  //Finally return available stations by id
+  let availablestations = availablestationsIds.map(stationId => {
+    return stations.find(station => {
+
+      if (station._id.toString() === stationId) return station
+
+    })
+  })
+
 
   try {
     res.json(availablestations);
@@ -131,6 +147,8 @@ router.get('/availablestations/:from/:to', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+
 
 // @route POST api/stations
 // @desc Add station

@@ -5,6 +5,7 @@ import ProtectedMap from "../layout/ProtectedMap";
 import ChargerDetails from "../layout/ChargerDetails";
 import { Grid } from "@material-ui/core";
 import DatePickerDialog from "../layout/DatePickerDialog";
+import ReservationDialog from "../layout/ReservationDialog";
 
 const ChargersMap = () => {
   const authContext = useContext(AuthContext);
@@ -25,6 +26,7 @@ const ChargersMap = () => {
   return (
     <Grid container direction="row">
       <DatePickerDialog />
+      <ReservationDialog />
       <Grid item xs={12} sm={7}>
         <ProtectedMap />
       </Grid>

@@ -12,14 +12,18 @@ import {
   SET_DATE_FROM,
   SET_DATE_TO,
   TOGGLE_MODAL,
+  TOGGLE_RESERVATION_MODAL,
   RESERVATION_ERROR,
+  SET_RESERVATION_CAR,
 } from "../types";
 
 const ReservationState = (props) => {
   const initialState = {
-    userReservationsAsDriver: null,
-    userReservationsAsStation: null,
+    userReservationsAsDriver: [],
+    userReservationsAsStation: [],
     isModalOpen: true,
+    car: "",
+    isReservationModalOpen: false,
     dateFrom: new Date().setMinutes(0),
     dateTo: new Date().setMinutes(0),
   };
@@ -30,6 +34,8 @@ const ReservationState = (props) => {
     userReservationsAsDriver,
     userReservationsAsStation,
     isModalOpen,
+    isReservationModalOpen,
+    car,
     dateTo,
     dateFrom,
   } = state;
@@ -60,7 +66,11 @@ const ReservationState = (props) => {
     };
 
     try {
-      const res = await axios.post("/api/reservations", reservation, config);
+      const res = await axios.post(
+        `/api/reservations/${reservation.id}`,
+        reservation,
+        config
+      );
       dispatch({ type: ADD_RESERVATION, payload: res.data });
     } catch (err) {
       dispatch({ type: RESERVATION_ERROR, payload: err.msg });
@@ -135,23 +145,41 @@ const ReservationState = (props) => {
     });
   };
 
+  const toggleReservationModal = (isReservationModalOpen) => {
+    dispatch({
+      type: TOGGLE_RESERVATION_MODAL,
+      payload: isReservationModalOpen,
+    });
+  };
+
+  const setReservationCar = (car) => {
+    dispatch({
+      type: SET_RESERVATION_CAR,
+      payload: car,
+    });
+  };
+
   return (
     <ReservationContext.Provider
       value={{
         dateFrom: state.dateFrom,
         dateTo: state.dateTo,
         isModalOpen,
+        isReservationModalOpen,
         userReservationsAsDriver,
         userReservationsAsStation,
+        car,
         getUserReservationsAsDriver,
         getUserReservationsAsStation,
         addReservation,
         deleteReservation,
         toggleModal,
+        toggleReservationModal,
         confirmReservation,
         rejectReservation,
         setDateFrom,
         setDateTo,
+        setReservationCar,
       }}
     >
       {props.children}

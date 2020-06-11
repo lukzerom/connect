@@ -8,7 +8,9 @@ import {
   SET_DATE_FROM,
   SET_DATE_TO,
   TOGGLE_MODAL,
+  TOGGLE_RESERVATION_MODAL,
   RESERVATION_ERROR,
+  SET_RESERVATION_CAR,
 } from "../types";
 
 export default (state, action) => {
@@ -24,30 +26,48 @@ export default (state, action) => {
     case TOGGLE_MODAL:
       return { ...state, isModalOpen: action.payload, loading: false };
 
+    case TOGGLE_RESERVATION_MODAL:
+      return {
+        ...state,
+        isReservationModalOpen: action.payload,
+        loading: false,
+      };
+
     case SET_DATE_FROM:
       console.log(action.payload);
       return { ...state, dateFrom: action.payload, loading: false };
     case SET_DATE_TO:
       return { ...state, dateTo: action.payload, loading: false };
+    case SET_RESERVATION_CAR:
+      return { ...state, car: action.payload, loading: false };
 
     case ADD_RESERVATION:
       return {
         ...state,
-        reservationsAsDriver: [action.payload, ...state.reservationsAsDriver],
+        reservationsAsDriver: [
+          ...state.userReservationsAsDriver,
+          action.payload,
+        ],
         loading: false,
       };
 
     case CONFIRM_RESERVATION:
       return {
         ...state,
-        reservationsAsCharger: [action.payload, ...state.reservationsAsCharger],
+        reservationsAsCharger: [
+          ...state.userReservationsAsCharger,
+          action.payload,
+        ],
         loading: false,
       };
 
     case REJECT_RESERVATION:
       return {
         ...state,
-        reservationsAsCharger: [action.payload, ...state.reservationsAsCharger],
+        reservationsAsCharger: [
+          ...state.userReservationsAsCharger,
+          action.payload,
+        ],
         loading: false,
       };
 

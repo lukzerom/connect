@@ -28,7 +28,6 @@ const ChargerMap = () => {
   } = stationContext;
   useEffect(() => {
     getAvailableStations();
-    //eslint-disable-next-line
   }, []);
 
   const changePosition = (e) => {

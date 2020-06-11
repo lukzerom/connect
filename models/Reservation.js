@@ -11,16 +11,23 @@ const ReservationShema = mongoose.Schema({
     ref: 'stations'
   },
 
+
+  car: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'cars'
+  },
+
+
   date: {
     type: Date,
     default: Date.now
   },
 
   timeStampFrom: {
-    type: String
+    type: Number
   },
   timeStampTo: {
-    type: String
+    type: Number
   },
 
   owner: {

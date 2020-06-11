@@ -8,8 +8,10 @@ import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import Rating from "@material-ui/lab/Rating";
 import StationContext from "../../context/stations/stationContext";
+import ReservationContext from "../../context/reservations/reservationContext";
 import ChargerIcon from "./ChargerIcon";
 import Extras from "../layout/Extras";
+import moment, { diff } from "moment";
 
 import {
   Container,
@@ -66,12 +68,40 @@ const useStyles = makeStyles((theme) => ({
   extrasBox: {
     display: "flex",
   },
+  buttons: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 }));
 
 const ChargerDetails = () => {
   const stationContext = useContext(StationContext);
+  const reservationContext = useContext(ReservationContext);
+  const {
+    dateFrom,
+    dateTo,
+    toggleModal,
+    isModalOpen,
+    isReservationModalOpen,
+    toggleReservationModal,
+  } = reservationContext;
+
   const { stations, station, setStation } = stationContext;
   const classes = useStyles();
+
+  const from = moment(dateFrom).format("YYYY-MM-DD HH:00");
+  const to = moment(dateTo).format("YYYY-MM-DD HH:00");
+
+  const duration = moment.duration(moment(dateTo).diff(moment(dateFrom)));
+  const durationHours = Math.round(duration.asHours());
+
+  const handleModal = () => {
+    toggleModal(!isModalOpen);
+  };
+
+  const handleReservationModal = () => {
+    toggleReservationModal(!isReservationModalOpen);
+  };
 
   return (
     <Card className={classes.card}>
@@ -83,7 +113,7 @@ const ChargerDetails = () => {
             variant="h3"
             align="center"
           >
-            Wybierz stację
+            Please pick a station
           </Typography>
         </CardContent>
       ) : (
@@ -154,13 +184,13 @@ const ChargerDetails = () => {
                   fontWeight="fontWeightBold"
                   className={classes.price}
                 >
-                  {station.price} zł / h
+                  {station.price} EUR / h
                 </Typography>
               </Grid>
             </Grid>
             <Divider variant="middle" className={classes.divider} />
             <Typography color="textSecondary" gutterBottom>
-              Dodatkowo:
+              Extras:
             </Typography>
             <Box className={classes.extrasBox}>
               {station.additives.map((extra, index) => {
@@ -178,7 +208,7 @@ const ChargerDetails = () => {
                   fontWeight="fontWeightBold"
                   align="center"
                 >
-                  Od: 12.06.2019 11:00
+                  From: {from}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -190,7 +220,7 @@ const ChargerDetails = () => {
                   fontWeight="fontWeightBold"
                   align="center"
                 >
-                  Do: 12.06.2019 12:00
+                  To: {to}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -202,15 +232,23 @@ const ChargerDetails = () => {
                   fontWeight="fontWeightBold"
                   align="center"
                 >
-                  Łącznie: 1h
+                  Total hours: {durationHours}
                 </Typography>
               </Grid>
             </Grid>
           </CardContent>
           <CardActions>
-            <Grid item xs={12} align="center">
-              <Button variant="contained" size="large" color="primary">
-                Zarezerwuj
+            <Grid item xs={12} align="center" className={classes.buttons}>
+              <Button variant="contained" size="large" onClick={handleModal}>
+                Change time
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={handleReservationModal}
+              >
+                Book
               </Button>
             </Grid>
           </CardActions>

@@ -67,10 +67,12 @@ router.post('/:id', [auth], async (req, res) => {
     const {
         timeStampFrom,
         timeStampTo,
+        car,
     } = req.body;
 
 
     let station = await Station.findById(req.params.id);
+
 
 
     let stationReservations = await Reservation.find({
@@ -81,8 +83,8 @@ router.post('/:id', [auth], async (req, res) => {
     //Calculate user range
 
     const userRange = moment.range(
-        moment(new Date(timeStampFrom)),
-        moment(new Date(timeStampTo))
+        moment((timeStampFrom)),
+        moment((timeStampTo))
     );
 
     //Get user
@@ -115,63 +117,27 @@ router.post('/:id', [auth], async (req, res) => {
 
     //Calculate how many euros will be needed to transaction
 
-    const fullPrice = userRange.diff('hours') * station.price;
+    let fullPrice = userRange.diff('hours') * station.price;
 
-    //Make sure user has electrons for transaction
-
-    // if (user.electrons <= requiredElectrons) {
-    //     return res.status(402).json({
-    //         msg: 'You dont have enough electrons'
-    //     });
-    // }
-
-    //Create object for user with new amount of electrons
-    // const userElectrons = user.electrons - requiredElectrons;
-
-    // const userFields = {
-    //     electrons: userElectrons
-    // };
 
     //Get owner of station
     const owner = await User.findById(station.user).select('-password');
 
-    // const ownerElectrons = owner.electrons + requiredElectrons;
-
-    // const ownerFields = {
-    //     electrons: ownerElectrons
-    // };
-
-    //Inside try, firstly reservation must be done. Then the electrons are settled between users
-
+    console.log(userRange, userRange.diff('hours'), station.price)
     try {
         const newReservation = new Reservation({
             timeStampFrom,
             timeStampTo,
             owner,
+            car,
             fullPrice,
             user: req.user.id,
             station: station._id
         });
 
         const reservation = await newReservation.save();
-        // await User.findByIdAndUpdate(
-        //     req.user.id, {
-        //         $set: userFields
-        //     }, {
-        //         new: true,
-        //         useFindAndModify: false,
-        //         useUnifiedTopology: true
-        //     }
-        // );
-        // await User.findByIdAndUpdate(
-        //     owner._id, {
-        //         $set: ownerFields
-        //     }, {
-        //         new: true,
-        //         useFindAndModify: false,
-        //         useUnifiedTopology: true
-        //     }
-        // );
+
+        console.log(reservation)
         res.json(reservation);
     } catch (err) {
         console.error(err.message);

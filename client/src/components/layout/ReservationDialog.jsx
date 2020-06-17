@@ -53,14 +53,17 @@ const ReservationDialog = () => {
   const {
     dateFrom,
     dateTo,
-    car,
-
+    carId,
     isReservationModalOpen,
     toggleReservationModal,
     addReservation,
   } = reservationContext;
 
   const { getAvailableStations, station } = stationContext;
+
+  useEffect(() => {
+    getAvailableStations(dateFrom, dateTo);
+  });
 
   const classes = useStyles();
 
@@ -77,20 +80,25 @@ const ReservationDialog = () => {
     let reservation = {
       timeStampFrom: dateFrom,
       timeStampTo: dateTo,
-      car,
+      carId,
       id: station._id,
     };
 
+    if (dateFrom === dateTo) {
+      setAlert(true);
+      const interval = window.setInterval(() => {
+        setAlert(false);
+        clearInterval(interval);
+      }, 5000);
+      return;
+    }
+
     addReservation(reservation);
     toggleReservationModal(false);
-    getAvailableStations(dateFrom, dateTo);
   };
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -110,12 +118,12 @@ const ReservationDialog = () => {
 
         <DialogContent dividers>
           <Grid container>
-            <Grid xs={6}>
+            <Grid xs={6} item>
               <Typography align="center">
                 <strong>Date from: </strong> {from}
               </Typography>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={6} item>
               <Typography align="center">
                 <strong>Date to :</strong> {to}
               </Typography>
@@ -123,10 +131,10 @@ const ReservationDialog = () => {
           </Grid>
           <Divider className={classes.divider} />
           <Grid container>
-            <Grid xs={4} align="center">
+            <Grid xs={4} item align="center">
               <CarSelect />
             </Grid>
-            <Grid xs={8} className={classes.price} align="center">
+            <Grid xs={8} item className={classes.price} align="center">
               <Typography align="center">
                 {station === undefined
                   ? null

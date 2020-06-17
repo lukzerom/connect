@@ -5,12 +5,15 @@ import {
   DELETE_CAR,
   CAR_ERROR,
   SET_CURRENT_CAR,
+  GET_CAR,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
     case GET_USER_CARS:
       return { ...state, cars: action.payload, loading: false };
+    case GET_CAR:
+      return { ...state, oneCar: action.payload, loading: false };
 
     case ADD_CAR:
       return {

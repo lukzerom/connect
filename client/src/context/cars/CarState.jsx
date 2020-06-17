@@ -9,12 +9,15 @@ import {
   DELETE_CAR,
   CAR_ERROR,
   SET_CURRENT_CAR,
+  GET_CAR,
 } from "../types";
 
 const CarState = (props) => {
   const initialState = {
     cars: [],
     editedCar: null,
+    oneCar: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(carReducer, initialState);
@@ -79,6 +82,14 @@ const CarState = (props) => {
       dispatch({ type: CAR_ERROR, payload: err.res.msg });
     }
   };
+  const getCar = async (id) => {
+    try {
+      await axios.get(`/api/cars/${id}`);
+      dispatch({ type: GET_CAR, payload: id });
+    } catch (err) {
+      dispatch({ type: CAR_ERROR, payload: err.res.msg });
+    }
+  };
 
   return (
     <CarContext.Provider
@@ -88,8 +99,11 @@ const CarState = (props) => {
         updateCar,
         deleteCar,
         addCar,
+        getCar,
+        oneCar: state.oneCar,
         cars: state.cars,
         editedCar: state.editedCar,
+        loading: state.loading,
       }}
     >
       {props.children}

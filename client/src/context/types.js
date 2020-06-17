@@ -1,4 +1,5 @@
 export const GET_ALL_STATIONS = 'GET_ALL_STATIONS'
+export const GET_STATION = 'GET_STATION'
 export const STATION_ERROR = 'STATION_ERROR'
 export const AUTH_ERROR = 'AUTH_ERROR'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
@@ -25,6 +26,7 @@ export const GET_AVAIABLE_STATIONS = 'GET_AVAIABLE_STATIONS'
 
 export const GET_USER_CARS = "GET_USER_CARS"
 export const ADD_CAR = "ADD_CAR"
+export const GET_CAR = "GET_CAR"
 export const EDIT_CAR = "EDIT_CAR"
 export const DELETE_CAR = "DELETE_CAR"
 export const CAR_ERROR = "CAR_ERROR"
@@ -41,6 +43,9 @@ export const REJECT_RESERVATION = 'REJECT_RESERVATION'
 export const SET_DATE_FROM = 'SET_DATE_FROM'
 export const SET_DATE_TO = 'SET_DATE_TO'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
+export const TOGGLE_MAP_MODAL = 'TOGGLE_MAP_MODAL'
 export const TOGGLE_RESERVATION_MODAL = 'TOGGLE_RESERVATION_MODAL'
 export const SET_RESERVATION_CAR = 'SET_RESERVATION_CAR'
 export const RESERVATION_ERROR = 'RESERVATION_ERROR'
+export const SET_ERROR = 'SET_ERROR'
+export const SET_SUCCESS = 'SET_SUCCESS'

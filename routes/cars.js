@@ -22,10 +22,11 @@ router.get('/', auth, async (req, res) => {
         }).sort({
             date: -1
         });
+
         res.json(cars)
 
     } catch (err) {
-        console.error(err.message)
+
         res.status(500).send("Server error")
     }
 });
@@ -175,6 +176,36 @@ router.delete('/:id', auth, async (req, res) => {
 
         res.json({
             msg: "Car removed"
+        })
+
+    } catch (err) {
+
+        console.error(err.message)
+        res.status(500).send("Server error ")
+    }
+});
+
+
+// @route GET api/cars/:id
+// @desc Get one car for reservation reasons
+// @access Private
+
+router.get('/:id', auth, async (req, res) => {
+
+
+    try {
+
+        let oneCar = await Car.findById(req.params.id)
+
+        if (!oneCar) {
+            return res.status(404).json({
+                msg: "Car not found"
+            })
+        }
+
+
+        res.json({
+            oneCar
         })
 
     } catch (err) {

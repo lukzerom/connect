@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddStation = (props) => {
+const EditStation = (props) => {
   const charger = "Charger";
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
@@ -174,15 +174,7 @@ const AddStation = (props) => {
     if (coffee) extras.push("Coffee");
     if (bus) extras.push("Bus");
 
-    if (
-      !name ||
-      !country ||
-      !city ||
-      !streetName ||
-      !streetNumber ||
-      !price ||
-      !plugin
-    ) {
+    if (!name || !country || !city || !streetName || !streetNumber || !plugin) {
       setState({ ...state, errors: true });
       return setAlert("Please provide required informations", "error");
     }
@@ -422,4 +414,4 @@ const AddStation = (props) => {
   );
 };
 
-export default AddStation;
+export default EditStation;

@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   extras: {
     display: "flex",
   },
+  button: {
+    width: "100%",
+  },
 }));
 
 const UserStation = ({ station }) => {
@@ -81,20 +84,22 @@ const UserStation = ({ station }) => {
               <Grid item xs={2}>
                 <ChargerIcon plugin={station.plugin} />
               </Grid>
-              <Box className={classes.adressBox}>
-                <Typography variant="h6">{station.name}</Typography>
-                <Typography variant="caption">
-                  {station.country} {station.city} {station.street}{" "}
-                  {station.streetNumber}
-                </Typography>
-                <Box className={classes.extras}>
-                  {station.additives.map((extra, index) => (
-                    <Extras key={index} extra={extra} />
-                  ))}
+              <Grid xs={6}>
+                <Box className={classes.adressBox}>
+                  <Typography variant="h6">{station.name}</Typography>
+                  <Typography variant="caption">
+                    {station.country} {station.city} {station.street}{" "}
+                    {station.streetNumber}
+                  </Typography>
+                  <Box className={classes.extras}>
+                    {station.additives.map((extra, index) => (
+                      <Extras key={index} extra={extra} />
+                    ))}
+                  </Box>
                 </Box>
-              </Box>
+              </Grid>
               <Box>
-                <Typography variant="h2">{station.price} zł/h</Typography>
+                <Typography variant="h4">{station.price} EUR/h</Typography>
               </Box>
               <Box className={classes.box}>
                 <Link
@@ -104,6 +109,7 @@ const UserStation = ({ station }) => {
                   <Button
                     variant="contained"
                     color="primary"
+                    className={classes.button}
                     onClick={() => handleEdit(station._id)}
                   >
                     Edit
@@ -112,6 +118,7 @@ const UserStation = ({ station }) => {
                 <Button
                   variant="contained"
                   color="secondary"
+                  className={classes.button}
                   onClick={() => handleDelete(station._id)}
                 >
                   Delete

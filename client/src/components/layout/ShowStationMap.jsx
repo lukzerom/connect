@@ -4,6 +4,7 @@ import StationContext from "../../context/stations/stationContext";
 import bolt from "../../assets/bolt.svg";
 import L, { marker, getLatLng } from "leaflet";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   map: { width: "100%", height: "100%" },
@@ -16,41 +17,42 @@ const myIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const AddStationMap = ({ longitude, latitude }) => {
+const ShowStationMap = ({ longitude, latitude }) => {
   const stationContext = useContext(StationContext);
   const classes = useStyles();
 
   useEffect(() => {
-    // getStations();
     //eslint-disable-next-line
   }, []);
 
   const {
     stations,
+    stationMapModal,
     getStations,
     markerPosition,
     setMarkerPosition,
   } = stationContext;
 
-  const onDragend = (e) => {
-    setMarkerPosition(e.target.getLatLng());
-  };
-
+  // [station.latitude, station.longitude]
   return (
-    <Map center={markerPosition} zoom={18} className={classes.map}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
+    <Grid item xs={12} className={classes.map}>
+      <Map
+        center={[stationMapModal.latitude, stationMapModal.longitude]}
+        zoom={18}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
 
-      <Marker
-        draggable={true}
-        onDragend={onDragend}
-        position={markerPosition}
-        icon={myIcon}
-      ></Marker>
-    </Map>
+        <Marker
+          draggable={false}
+          position={[stationMapModal.latitude, stationMapModal.longitude]}
+          icon={myIcon}
+        ></Marker>
+      </Map>
+    </Grid>
   );
 };
 
-export default AddStationMap;
+export default ShowStationMap;

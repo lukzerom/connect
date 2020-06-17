@@ -3,6 +3,7 @@ import "./App.css";
 import Nav from "./components/layout/Nav";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import MomentUtils from "@date-io/moment";
 import Main from "./components/pages/Main";
 import Register from "./components/pages/Register";
@@ -29,64 +30,77 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#10375c",
+    },
+    secondary: {
+      main: "#e7305b",
+    },
+  },
+});
+
 function App() {
   return (
-    <AuthState>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <AlertState>
-          <ReservationState>
-            <StationState>
-              <CarState>
-                <div className="App">
-                  <Router>
-                    <Nav />
-                    <Alerts />
-                    <Switch>
-                      <PrivateRoute exact path="/" component={Main} />
-                      <PrivateRoute path="/dashboard" component={Dashboard} />
-                      <PrivateRoute
-                        path="/my-vehicles"
-                        component={MyVehicles}
-                      />
-                      <PrivateRoute
-                        path="/my-stations"
-                        component={MyStations}
-                      />
-                      <PrivateRoute
-                        path="/add-station"
-                        component={AddStation}
-                      />
-                      <PrivateRoute
-                        path="/add-vehicle"
-                        component={AddVehicle}
-                      />
-                      <PrivateRoute
-                        path="/edit-station"
-                        component={EditStation}
-                      />
-                      <PrivateRoute
-                        path="/edit-vehicle"
-                        component={EditVehicle}
-                      />
-                      <PrivateRoute
-                        path="/my-reservations"
-                        component={MyReservations}
-                      />
-                      <PrivateRoute
-                        path="/chargersmap"
-                        component={ChargersMap}
-                      />
-                      <Route path="/login" component={Login} />
-                      <Route path="/register" component={Register} />
-                    </Switch>
-                  </Router>
-                </div>
-              </CarState>
-            </StationState>
-          </ReservationState>
-        </AlertState>
-      </MuiPickersUtilsProvider>
-    </AuthState>
+    <div className="App">
+      <MuiThemeProvider theme={theme}>
+        <AuthState>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <AlertState>
+              <ReservationState>
+                <StationState>
+                  <CarState>
+                    <Router>
+                      <Nav />
+                      <Alerts />
+                      <Switch>
+                        <PrivateRoute exact path="/" component={Main} />
+                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute
+                          path="/my-vehicles"
+                          component={MyVehicles}
+                        />
+                        <PrivateRoute
+                          path="/my-stations"
+                          component={MyStations}
+                        />
+                        <PrivateRoute
+                          path="/add-station"
+                          component={AddStation}
+                        />
+                        <PrivateRoute
+                          path="/add-vehicle"
+                          component={AddVehicle}
+                        />
+                        <PrivateRoute
+                          path="/edit-station"
+                          component={EditStation}
+                        />
+                        <PrivateRoute
+                          path="/edit-vehicle"
+                          component={EditVehicle}
+                        />
+                        <PrivateRoute
+                          path="/my-reservations"
+                          component={MyReservations}
+                        />
+                        <PrivateRoute
+                          path="/chargersmap"
+                          component={ChargersMap}
+                        />
+                        <Route path="/login" component={Login} />
+                        <Route path="/register" component={Register} />
+                      </Switch>
+                    </Router>
+                  </CarState>
+                </StationState>
+              </ReservationState>
+            </AlertState>
+          </MuiPickersUtilsProvider>
+        </AuthState>
+      </MuiThemeProvider>
+    </div>
   );
 }
 

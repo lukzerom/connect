@@ -59,13 +59,16 @@ const useStyles = makeStyles({
   filler: {
     flexGrow: 1,
   },
+  button: {
+    width: "100%",
+  },
 });
 
 const CarCard = ({ car }) => {
   const classes = useStyles();
   const carContext = useContext(CarContext);
 
-  const { deleteCar, setCar } = carContext;
+  const { deleteCar, setCar, getCars } = carContext;
 
   const handleDelete = (id) => {
     deleteCar(id);
@@ -73,6 +76,7 @@ const CarCard = ({ car }) => {
 
   const handleEdit = (car) => {
     setCar(car);
+    getCars();
   };
 
   return (
@@ -115,6 +119,7 @@ const CarCard = ({ car }) => {
                     variant="contained"
                     size="small"
                     color="primary"
+                    className={classes.button}
                     onClick={() => handleEdit(car)}
                   >
                     Edit
@@ -124,6 +129,7 @@ const CarCard = ({ car }) => {
                   variant="contained"
                   size="small"
                   color="secondary"
+                  className={classes.button}
                   onClick={() => handleDelete(car._id)}
                 >
                   Delete

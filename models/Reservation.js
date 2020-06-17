@@ -12,9 +12,43 @@ const ReservationShema = mongoose.Schema({
   },
 
 
-  car: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'cars'
+  carName: {
+    type: String
+  },
+
+  carRegistration: {
+    type: String
+  },
+  stationName: {
+    type: String
+  },
+
+  stationCountry: {
+    type: String
+  },
+
+  stationCity: {
+    type: String
+  },
+
+  stationStreet: {
+    type: String
+  },
+
+  ownerPhone: {
+    type: String
+  },
+
+  ownerName: {
+    type: String
+  },
+
+
+  userPhone: {
+    type: String
+  },
+  userName: {
+    type: String
   },
 
 

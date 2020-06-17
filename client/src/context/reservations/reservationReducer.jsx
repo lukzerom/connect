@@ -11,6 +11,9 @@ import {
   TOGGLE_RESERVATION_MODAL,
   RESERVATION_ERROR,
   SET_RESERVATION_CAR,
+  TOGGLE_MAP_MODAL,
+  SET_ERROR,
+  SET_SUCCESS,
 } from "../types";
 
 export default (state, action) => {
@@ -18,11 +21,15 @@ export default (state, action) => {
     case GET_RESERVATIONS_AS_CHARGER:
       return {
         ...state,
-        reservationsAsCharger: action.payload,
-        loading: false,
+        userReservationsAsStation: action.payload,
+        loadingUserStations: false,
       };
     case GET_RESERVATIONS_AS_DRIVER:
-      return { ...state, reservationsAsDriver: action.payload, loading: false };
+      return {
+        ...state,
+        userReservationsAsDriver: action.payload,
+        loadingUserTrips: false,
+      };
     case TOGGLE_MODAL:
       return { ...state, isModalOpen: action.payload, loading: false };
 
@@ -33,13 +40,20 @@ export default (state, action) => {
         loading: false,
       };
 
+    case TOGGLE_MAP_MODAL:
+      return {
+        ...state,
+        isMapModalOpen: action.payload,
+        loading: false,
+      };
+
     case SET_DATE_FROM:
       console.log(action.payload);
       return { ...state, dateFrom: action.payload, loading: false };
     case SET_DATE_TO:
       return { ...state, dateTo: action.payload, loading: false };
     case SET_RESERVATION_CAR:
-      return { ...state, car: action.payload, loading: false };
+      return { ...state, carId: action.payload, loading: false };
 
     case ADD_RESERVATION:
       return {
@@ -48,26 +62,31 @@ export default (state, action) => {
           ...state.userReservationsAsDriver,
           action.payload,
         ],
+        success: true,
         loading: false,
       };
 
     case CONFIRM_RESERVATION:
       return {
         ...state,
-        reservationsAsCharger: [
-          ...state.userReservationsAsCharger,
-          action.payload,
-        ],
+        userReservationsAsStation: state.userReservationsAsStation.map(
+          (reservation) =>
+            reservation._id === action.payload._id
+              ? action.payload
+              : reservation
+        ),
         loading: false,
       };
 
     case REJECT_RESERVATION:
       return {
         ...state,
-        reservationsAsCharger: [
-          ...state.userReservationsAsCharger,
-          action.payload,
-        ],
+        userReservationsAsStation: state.userReservationsAsStation.map(
+          (reservation) =>
+            reservation._id === action.payload._id
+              ? action.payload
+              : reservation
+        ),
         loading: false,
       };
 
@@ -77,10 +96,22 @@ export default (state, action) => {
         error: action.payload,
       };
 
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case SET_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
+      };
+
     case DELETE_RESERVATION:
       return {
         ...state,
-        reservationsAsDriver: state.reservationsAsDriver.filter(
+        userReservationsAsDriver: state.userReservationsAsDriver.filter(
           (reservation) => reservation._id !== action.payload
         ),
         loading: false,

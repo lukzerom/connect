@@ -9,6 +9,7 @@ import { Typography, Divider, Button, Grid } from "@material-ui/core";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import { Link } from "react-router-dom";
 import CarCard from "../layout/CarCard";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   vehiclesWrapper: {
@@ -24,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   carContainer: {
     display: "flex",
   },
+  title: {
+    color: "#127681",
+  },
+  loading: {
+    margin: "10rem auto",
+  },
 }));
 
 const MyVehicles = () => {
@@ -31,7 +38,7 @@ const MyVehicles = () => {
   const carContext = useContext(CarContext);
   const classes = useStyles();
 
-  const { getCars, cars } = carContext;
+  const { getCars, cars, loading } = carContext;
   const { isAuthenticated, logout, user } = authContext;
   useEffect(() => {
     authContext.loadUser();
@@ -43,7 +50,9 @@ const MyVehicles = () => {
     <Box className={classes.vehiclesWrapper}>
       <Grid container justify="center">
         <Grid item xs={10} className={classes.topPanel}>
-          <Typography variant="h4">My Vehicles</Typography>
+          <Typography className={classes.title} variant="h4">
+            My Vehicles
+          </Typography>
           <Link to="/add-vehicle" style={{ textDecoration: "none" }}>
             <Button variant="contained" startIcon={<AddToPhotosIcon />}>
               Add vehicle
@@ -53,15 +62,24 @@ const MyVehicles = () => {
       </Grid>
 
       <Divider />
-      <Grid container classNames={classes.carContainer}>
-        {cars === [] ? (
-          <Typography variant="h1">Nie posiadasz jeszcze samochodu</Typography>
-        ) : (
-          cars.map((car) => {
-            return <CarCard key={car._id} car={car} />;
-          })
-        )}
-      </Grid>
+
+      {loading ? (
+        <Grid container classNames={classes.carContainer}>
+          <CircularProgress color="primary" className={classes.loading} />
+        </Grid>
+      ) : (
+        <Grid container classNames={classes.carContainer}>
+          {cars === [] ? (
+            <Typography variant="h1" className={classes.title}>
+              Add your first vehicle :)
+            </Typography>
+          ) : (
+            cars.map((car) => {
+              return <CarCard key={car._id} car={car} />;
+            })
+          )}
+        </Grid>
+      )}
     </Box>
   );
 };

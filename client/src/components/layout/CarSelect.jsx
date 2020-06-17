@@ -23,13 +23,14 @@ const CarSelect = () => {
   const carContext = useContext(CarContext);
   const reservationContext = useContext(ReservationContext);
   const { getCars, cars } = carContext;
-  const { setReservationCar, car } = reservationContext;
+  const { setReservationCar, carId } = reservationContext;
 
   useEffect(() => {
     getCars();
   });
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     setReservationCar(e.target.value);
   };
 
@@ -40,11 +41,11 @@ const CarSelect = () => {
         labelId="car-select"
         id="car-label-select"
         onChange={handleChange}
-        value={car}
+        value={carId}
       >
         {cars.map((car) => {
           return (
-            <MenuItem value={String(car._id)} key={String(car._id)}>
+            <MenuItem value={car._id} key={String(car._id)}>
               {car.brand} {car.model}
             </MenuItem>
           );

@@ -4,6 +4,7 @@ import StationContext from "./stationContext";
 import stationReducer from "./stationReducer";
 import {
   GET_ALL_STATIONS,
+  GET_STATION,
   STATION_ERROR,
   SET_POSITION,
   SET_MAP_ZOOM,
@@ -21,6 +22,7 @@ import { set } from "mongoose";
 const StationState = (props) => {
   const initialState = {
     stations: null,
+    stationMapModal: { latitude: 0, longitude: 0 },
     avaiableStations: null,
     error: null,
     position: [50.270873, 16.25341],
@@ -29,6 +31,7 @@ const StationState = (props) => {
     userstations: null,
     markerPosition: [50.270873, 16.25341],
     editStation: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(stationReducer, initialState);
@@ -38,6 +41,16 @@ const StationState = (props) => {
     try {
       const res = await axios.get("/api/stations");
       dispatch({ type: GET_ALL_STATIONS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: STATION_ERROR, payload: err.res.msg });
+    }
+  };
+
+  //Get station
+  const getStation = async (id) => {
+    try {
+      const res = await axios.get(`/api/stations/${id}`);
+      dispatch({ type: GET_STATION, payload: res.data });
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });
     }
@@ -156,11 +169,15 @@ const StationState = (props) => {
     <StationContext.Provider
       value={{
         stations: state.stations,
+        stationMapModal: state.stationMapModal,
+        loading: state.loading,
         getStations: getStations,
+        getStation: getStation,
         position: state.position,
         setPosition: setPosition,
         setZoom: setZoom,
         zoom: state.zoom,
+        error: state.error,
         setStation: setStation,
         station: state.station,
         getUserStations: getUserStations,

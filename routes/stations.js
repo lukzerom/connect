@@ -13,19 +13,105 @@ const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
 
 
+// @route PUT api/stations/:id
+// @desc Edit station details
+// @access Private
+
+router.put('/:id', auth, async (req, res) => {
+  const {
+    name,
+    country,
+    city,
+    street,
+    streetNumber,
+    longitude,
+    latitude,
+    plugin,
+    price,
+    additives,
+    picture
+  } = req.body;
+
+  const stationFields = {};
+
+  if (name) stationFields.name = name;
+  if (country) stationFields.country = country;
+  if (city) stationFields.city = city;
+  if (street) stationFields.street = street;
+  if (streetNumber) stationFields.streetNumber = streetNumber;
+  if (longitude) stationFields.longitude = longitude;
+  if (latitude) stationFields.latitude = latitude;
+  if (plugin) stationFields.plugin = plugin;
+  if (price) stationFields.price = price;
+  if (additives) stationFields.additives = additives;
+  if (picture) stationFields.picture = picture;
+
+  try {
+    let station = await Station.findById(req.params.id);
+
+    if (!station) {
+      return res.status(404).json({
+        msg: 'Station not found'
+      });
+    }
+
+    //Make sure user owns station
+
+    if (station.user.toString() !== req.user.id) {
+      return res.status(401).json({
+        msg: 'Not authorized'
+      });
+    }
+
+    station = await Station.findByIdAndUpdate(
+      req.params.id, {
+        $set: stationFields
+      }, {
+        new: true
+      }
+    );
+    res.json(station);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error ');
+  }
+});
+
+
+// @route GET api/stations/userstations
+// @desc Get all user statios
+// @access Private
+
+router.get('/userstations', auth, async (req, res) => {
+  try {
+
+    const userstations = await Station.find({
+      user: req.user.id
+    }).sort({
+      date: -1
+    });
+
+    res.json(userstations);
+  } catch (err) {
+
+    res.status(500).send('Server error');
+  }
+});
 
 
 // @route GET api/stations/:id
 // @desc Get choosen station
 // @access Private
 
-router.get('/stations/:id', auth, async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
 
   try {
     const station = await Station.find({
-      id: req.params.id
+      _id: req.params.id
     })
-    res.json(station);
+    res.json(
+      ...station
+    );
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -47,23 +133,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/stations/userstations
-// @desc Get all user statios
-// @access Private
-
-router.get('/userstations', auth, async (req, res) => {
-  try {
-    const stations = await Station.find({
-      user: req.user.id
-    }).sort({
-      date: -1
-    });
-    res.json(stations);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
 
 // @route GET api/stations/availablestations
 // @desc Get available stations 
@@ -234,69 +303,6 @@ router.post(
   }
 );
 
-// @route PUT api/stations/:id
-// @desc Edit station details
-// @access Private
-
-router.put('/:id', auth, async (req, res) => {
-  const {
-    name,
-    country,
-    city,
-    street,
-    streetNumber,
-    longitude,
-    latitude,
-    plugin,
-    price,
-    additives,
-    picture
-  } = req.body;
-
-  const stationFields = {};
-
-  if (name) stationFields.name = name;
-  if (country) stationFields.country = country;
-  if (city) stationFields.city = city;
-  if (street) stationFields.street = street;
-  if (streetNumber) stationFields.streetNumber = streetNumber;
-  if (longitude) stationFields.longitude = longitude;
-  if (latitude) stationFields.latitude = latitude;
-  if (plugin) stationFields.plugin = plugin;
-  if (price) stationFields.price = price;
-  if (additives) stationFields.additives = additives;
-  if (picture) stationFields.picture = picture;
-
-  try {
-    let station = await Station.findById(req.params.id);
-
-    if (!station) {
-      return res.status(404).json({
-        msg: 'Station not found'
-      });
-    }
-
-    //Make sure user owns station
-
-    if (station.user.toString() !== req.user.id) {
-      return res.status(401).json({
-        msg: 'Not authorized'
-      });
-    }
-
-    station = await Station.findByIdAndUpdate(
-      req.params.id, {
-        $set: stationFields
-      }, {
-        new: true
-      }
-    );
-    res.json(station);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error ');
-  }
-});
 
 // @route DELETE api/stations/:id
 // @desc Delete station

@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useEffect } from "react";
+import React, { useContext, Fragment, useEffect, useState } from "react";
 import AuthContext from "../../context/auth/authContext";
 import StationContext from "../../context/stations/stationContext";
 import UserStation from "../layout/UserStation";
@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import { Typography, Divider, Button, Grid } from "@material-ui/core";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import { Link } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -19,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     margin: "1rem",
   },
+  title: {
+    color: "#127681",
+  },
+  loading: {
+    margin: "10rem auto",
+  },
 }));
 
 const MyStations = () => {
@@ -26,11 +33,11 @@ const MyStations = () => {
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
 
-  const { isAuthenticated, logout, user } = authContext;
-  const { userstations, getUserStations } = stationContext;
+  const { isAuthenticated, logout, user, loadUser } = authContext;
+  const { userstations, getUserStations, loading } = stationContext;
 
   useEffect(() => {
-    authContext.loadUser();
+    loadUser();
     getUserStations();
     //eslint-disable-next-line
   }, []);
@@ -39,7 +46,9 @@ const MyStations = () => {
     <Box className={classes.stationsWrapper}>
       <Grid container justify="center">
         <Grid item xs={10} className={classes.topPanel}>
-          <Typography variant="h4">My stations</Typography>
+          <Typography variant="h4" className={classes.title}>
+            My stations
+          </Typography>
           <Link to="/add-station" style={{ textDecoration: "none" }}>
             <Button variant="contained" startIcon={<AddToPhotosIcon />}>
               Add station
@@ -49,14 +58,25 @@ const MyStations = () => {
       </Grid>
 
       <Divider />
-      {userstations === null ? (
-        <Typography variant="h6" align="center">
-          Nie posiadasz jeszcze stacji
+
+      {loading ? (
+        <Typography variant="h6" align="center" className={classes.title}>
+          <CircularProgress color="primary" className={classes.loading} />
         </Typography>
       ) : (
-        userstations.map((station) => {
-          return <UserStation key={station._id} station={station} />;
-        })
+        <Box>
+          {userstations === null ? (
+            <Typography variant="h6" align="center" className={classes.title}>
+              Add your first station :)
+            </Typography>
+          ) : (
+            userstations.map((userstation) => {
+              return (
+                <UserStation key={userstation._id} station={userstation} />
+              );
+            })
+          )}
+        </Box>
       )}
     </Box>
   );

@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: "middle",
     marginRight: "0.5rem",
     fontSize: "16px",
-    color: "#880000",
+    color: "#127681",
   },
   subtitle: {
     fontSize: "14px",
@@ -71,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     display: "flex",
     justifyContent: "space-between",
+  },
+  title: {
+    color: "#127681",
   },
 }));
 
@@ -119,20 +122,8 @@ const ChargerDetails = () => {
       ) : (
         <>
           <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              variant="h6"
-              align="center"
-            >
+            <Typography className={classes.title} variant="h6" align="center">
               {station.name}
-              <Rating
-                name="read-only"
-                value={0}
-                readOnly
-                className={classes.rating}
-              />{" "}
-              (3)
             </Typography>
 
             <Divider variant="middle" className={classes.divider} />

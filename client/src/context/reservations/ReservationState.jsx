@@ -15,6 +15,9 @@ import {
   TOGGLE_RESERVATION_MODAL,
   RESERVATION_ERROR,
   SET_RESERVATION_CAR,
+  TOGGLE_MAP_MODAL,
+  SET_ERROR,
+  SET_SUCCESS,
 } from "../types";
 
 const ReservationState = (props) => {
@@ -22,10 +25,15 @@ const ReservationState = (props) => {
     userReservationsAsDriver: [],
     userReservationsAsStation: [],
     isModalOpen: true,
-    car: "",
+    isMapModalOpen: false,
+    carId: "",
     isReservationModalOpen: false,
     dateFrom: new Date().setMinutes(0),
     dateTo: new Date().setMinutes(0),
+    error: null,
+    success: null,
+    loadingUserStations: true,
+    loadingUserTrips: true,
   };
 
   const [state, dispatch] = useReducer(reservationnReducer, initialState);
@@ -35,9 +43,14 @@ const ReservationState = (props) => {
     userReservationsAsStation,
     isModalOpen,
     isReservationModalOpen,
-    car,
+    carId,
     dateTo,
     dateFrom,
+    isMapModalOpen,
+    error,
+    success,
+    loadingUserStations,
+    loadingUserTrips,
   } = state;
 
   const getUserReservationsAsDriver = async () => {
@@ -73,7 +86,7 @@ const ReservationState = (props) => {
       );
       dispatch({ type: ADD_RESERVATION, payload: res.data });
     } catch (err) {
-      dispatch({ type: RESERVATION_ERROR, payload: err.msg });
+      dispatch({ type: RESERVATION_ERROR, payload: err.response.data.msg });
     }
   };
 
@@ -95,7 +108,7 @@ const ReservationState = (props) => {
 
     try {
       const res = await axios.put(
-        `/api/reservations/${reservation.id}`,
+        `/api/reservations/${reservation._id}`,
         reservation,
         config
       );
@@ -114,7 +127,7 @@ const ReservationState = (props) => {
 
     try {
       const res = await axios.put(
-        `/api/reservations/${reservation.id}`,
+        `/api/reservations/${reservation._id}`,
         reservation,
         config
       );
@@ -128,6 +141,13 @@ const ReservationState = (props) => {
     dispatch({
       type: SET_DATE_FROM,
       payload: dateFrom,
+    });
+  };
+
+  const setError = (error) => {
+    dispatch({
+      type: SET_ERROR,
+      payload: error,
     });
   };
 
@@ -145,6 +165,13 @@ const ReservationState = (props) => {
     });
   };
 
+  const toggleMapModal = (isMapModalOpen) => {
+    dispatch({
+      type: TOGGLE_MAP_MODAL,
+      payload: isMapModalOpen,
+    });
+  };
+
   const toggleReservationModal = (isReservationModalOpen) => {
     dispatch({
       type: TOGGLE_RESERVATION_MODAL,
@@ -152,10 +179,17 @@ const ReservationState = (props) => {
     });
   };
 
-  const setReservationCar = (car) => {
+  const setReservationCar = (carId) => {
     dispatch({
       type: SET_RESERVATION_CAR,
-      payload: car,
+      payload: carId,
+    });
+  };
+
+  const setSuccess = (success) => {
+    dispatch({
+      type: SET_SUCCESS,
+      payload: success,
     });
   };
 
@@ -168,7 +202,12 @@ const ReservationState = (props) => {
         isReservationModalOpen,
         userReservationsAsDriver,
         userReservationsAsStation,
-        car,
+        carId,
+        isMapModalOpen,
+        error,
+        success,
+        loadingUserStations,
+        loadingUserTrips,
         getUserReservationsAsDriver,
         getUserReservationsAsStation,
         addReservation,
@@ -180,6 +219,9 @@ const ReservationState = (props) => {
         setDateFrom,
         setDateTo,
         setReservationCar,
+        toggleMapModal,
+        setError,
+        setSuccess,
       }}
     >
       {props.children}

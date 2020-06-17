@@ -7,6 +7,7 @@ const {
 } = require('express-validator');
 const User = require('../models/User');
 const Station = require('../models/Station');
+const Car = require('../models/Car');
 const Reservation = require('../models/Reservation');
 const Moment = require('moment');
 const MomentRange = require('moment-range');
@@ -67,11 +68,12 @@ router.post('/:id', [auth], async (req, res) => {
     const {
         timeStampFrom,
         timeStampTo,
-        car,
+        carId,
     } = req.body;
-
+    console.log(carId, typeof carId)
 
     let station = await Station.findById(req.params.id);
+    let car = await Car.findById(carId)
 
 
 
@@ -123,16 +125,25 @@ router.post('/:id', [auth], async (req, res) => {
     //Get owner of station
     const owner = await User.findById(station.user).select('-password');
 
-    console.log(userRange, userRange.diff('hours'), station.price)
+
     try {
         const newReservation = new Reservation({
             timeStampFrom,
             timeStampTo,
             owner,
-            car,
+            carName: `${car.brand} ${car.model}`,
+            carRegistration: car.registration,
             fullPrice,
             user: req.user.id,
-            station: station._id
+            station: station._id,
+            stationName: station.name,
+            stationCountry: station.country,
+            stationCity: station.city,
+            stationStreet: `${station.street} ${station.streetNumber}`,
+            ownerPhone: owner.phone,
+            ownerName: owner.name,
+            userPhone: user.phone,
+            userName: user.name,
         });
 
         const reservation = await newReservation.save();
@@ -153,7 +164,7 @@ router.post('/:id', [auth], async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         let reservation = await Reservation.findById(req.params.id);
-
+        console.log(reservation)
         if (!reservation) {
             return res.status(404).json({
                 msg: 'Reservation not found'
@@ -164,7 +175,7 @@ router.delete('/:id', auth, async (req, res) => {
 
         if (reservation.user.toString() !== req.user.id) {
             return res.status(401).json({
-                nsg: 'Not authorized'
+                msg: 'Not authorized'
             });
         }
         await Reservation.findByIdAndRemove(req.params.id);

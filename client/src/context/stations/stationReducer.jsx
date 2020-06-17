@@ -12,12 +12,15 @@ import {
   EDIT_STATION,
   DELETE_STATION,
   GET_AVAIABLE_STATIONS,
+  GET_STATION,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
     case GET_ALL_STATIONS:
       return { ...state, stations: action.payload, loading: false };
+    case GET_STATION:
+      return { ...state, stationMapModal: action.payload, loading: false };
     case GET_AVAIABLE_STATIONS:
       return { ...state, avaiableStations: action.payload, loading: false };
     case SET_POSITION:
@@ -37,14 +40,14 @@ export default (state, action) => {
     case ADD_STATION:
       return {
         ...state,
-        stations: [action.payload, ...state.stations],
+        userstations: [action.payload, ...state.userstations],
         loading: false,
       };
 
     case EDIT_STATION:
       return {
         ...state,
-        stations: [action.payload, ...state.stations],
+        userstations: [action.payload, ...state.userstations],
         loading: false,
       };
 

@@ -26,9 +26,7 @@ const ChargerMap = () => {
     getAvailableStations,
     avaiableStations,
   } = stationContext;
-  useEffect(() => {
-    getAvailableStations();
-  }, []);
+  useEffect(() => {}, []);
 
   const changePosition = (e) => {
     animateflag = true;
@@ -49,6 +47,7 @@ const ChargerMap = () => {
   };
 
   const onViewportChanged = (viewport) => {
+    console.log(animateflag);
     setZoom(viewport.zoom);
     setPosition(viewport.center);
     animateflag = false;

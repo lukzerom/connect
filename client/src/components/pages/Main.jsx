@@ -4,6 +4,7 @@ import ChargerMap from "../layout/Map";
 const Main = () => {
   return (
     <div>
+      <section className="main"></section>
       <ChargerMap />
     </div>
   );

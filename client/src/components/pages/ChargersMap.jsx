@@ -2,6 +2,7 @@ import React, { useContext, Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AuthContext from "../../context/auth/authContext";
 import ReservationContext from "../../context/reservations/reservationContext";
+import StationContext from "../../context/stations/stationContext";
 import ProtectedMap from "../layout/ProtectedMap";
 import ChargerDetails from "../layout/ChargerDetails";
 import { Grid } from "@material-ui/core";
@@ -24,15 +25,18 @@ function Alert(props) {
 
 const ChargersMap = () => {
   const authContext = useContext(AuthContext);
+  const stationContext = useContext(StationContext);
   const reservationContext = useContext(ReservationContext);
   const [openError, setOpenError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
   const { isAuthenticated, logout, user } = authContext;
   const { error, success, setError, setSuccess } = reservationContext;
+  const { getAvailableStations } = stationContext;
 
   useEffect(() => {
     authContext.loadUser();
+    getAvailableStations();
     //eslint-disable-next-line
   }, []);
 

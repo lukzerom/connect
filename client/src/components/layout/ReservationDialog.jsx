@@ -61,9 +61,7 @@ const ReservationDialog = () => {
 
   const { getAvailableStations, station } = stationContext;
 
-  useEffect(() => {
-    getAvailableStations(dateFrom, dateTo);
-  });
+  useEffect(() => {});
 
   const classes = useStyles();
 

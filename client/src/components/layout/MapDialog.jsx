@@ -72,7 +72,7 @@ const MapDialog = () => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={isMapModalOpen}
-        fullWidth="lg"
+        fullWidth
       >
         <MuiDialogTitle disableTypography>
           <Typography variant="h6">Confirm data and pick your car</Typography>

@@ -9,6 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
+import NearMeIcon from "@material-ui/icons/NearMe";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,7 +82,7 @@ const Nav = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            EV
+            <NearMeIcon /> Connected
           </Typography>{" "}
           {isAuthenticated ? authLinks : guestLinks}
         </Toolbar>

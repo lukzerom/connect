@@ -176,7 +176,7 @@ const AddVehicle = (props) => {
                     onClick={handleSubmit}
                     startIcon={<EditIcon />}
                   >
-                    Edit Data
+                    Save changes
                   </Button>
                 </Box>
                 <Divider className={classes.divider} />

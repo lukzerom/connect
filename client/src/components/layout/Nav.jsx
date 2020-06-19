@@ -82,7 +82,9 @@ const Nav = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <NearMeIcon /> Connected
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              <NearMeIcon /> Connected
+            </Link>
           </Typography>{" "}
           {isAuthenticated ? authLinks : guestLinks}
         </Toolbar>

@@ -295,6 +295,7 @@ router.post(
       });
 
       const station = await newStation.save();
+
       res.json(station);
     } catch (err) {
       console.error(err.message);

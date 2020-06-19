@@ -80,7 +80,6 @@ const AddStation = (props) => {
     userstations,
     getUserStations,
     markerPosition,
-
     setMarkerPosition,
     addStation,
   } = stationContext;
@@ -184,6 +183,7 @@ const AddStation = (props) => {
       setState({ ...state, errors: true });
       return setAlert("Please provide required informations", "error");
     }
+    console.log(markerPosition);
 
     const station = {
       name,
@@ -194,11 +194,11 @@ const AddStation = (props) => {
       picture: pictureUrl,
       price,
       plugin,
-      longitude: markerPosition.lng,
-      latitude: markerPosition.lat,
+      latitude: markerPosition[0],
+      longitude: markerPosition[1],
       additives: extras,
     };
-
+    console.log(station);
     addStation(station);
 
     props.history.push("/my-stations");

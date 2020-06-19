@@ -29,6 +29,29 @@
 .main {
     height: 100vh;
     background-color: #f4f6ff;
+    display: flex;
+}
 
+.half {
+    margin: 5vh;
+    padding: 5vh;
+    width: 100%;
+}
 
+.car {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.darkblue {
+    color: #10375c
+}
+
+.blue {
+    color: #127681
+}
+
+.yellow {
+    color: #f3c623
 }

@@ -21,7 +21,6 @@ const AddStationMap = ({ longitude, latitude }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    // getStations();
     //eslint-disable-next-line
   }, []);
 
@@ -33,6 +32,7 @@ const AddStationMap = ({ longitude, latitude }) => {
   } = stationContext;
 
   const onDragend = (e) => {
+    console.log(e.target.getLatLng());
     setMarkerPosition(e.target.getLatLng());
   };
 

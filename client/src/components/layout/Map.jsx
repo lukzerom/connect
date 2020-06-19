@@ -23,7 +23,7 @@ const ChargerMap = () => {
 
   return (
     <div className="map-container">
-      <Map center={[50.270873, 16.25341]} zoom={5}>
+      <Map center={[50.270873, 16.25341]} zoom={5} scrollWheelZoom={false}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -38,6 +38,9 @@ const theme = createMuiTheme({
     secondary: {
       main: "#e7305b",
     },
+    blue: {
+      main: "#127681",
+    },
   },
 });
 

@@ -13,7 +13,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f4f6ff",
     minHeight: "100vh",
   },
 }));

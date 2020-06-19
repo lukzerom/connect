@@ -104,9 +104,12 @@ const CarCard = ({ car }) => {
             </Grid>
             <Divider className={classes.divider} />
             <Grid container className={classes.footer}>
-              {car.plugins.map((plugin) => {
+              {car.plugins.map((plugin, index) => {
                 return (
-                  <Box className={classes.pluginIcon}>
+                  <Box
+                    className={classes.pluginIcon}
+                    key={`${car.id}_${index}`}
+                  >
                     <ChargerIcon plugin={plugin} />
                   </Box>
                 );

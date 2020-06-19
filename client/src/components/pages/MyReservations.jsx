@@ -11,7 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   vehiclesWrapper: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f4f6ff",
     minHeight: "100vh",
     padding: "0 10vw",
   },
@@ -72,12 +72,7 @@ const MyReservations = () => {
         </Grid>
 
         <Divider />
-        <Grid
-          container
-          xs={12}
-          justify="center"
-          classNames={classes.carContainer}
-        >
+        <Grid container justify="center" className={classes.carContainer}>
           <Grid item xs={6}>
             <Typography variant="h6" align="center" className={classes.title}>
               Reservation for your trip

@@ -149,7 +149,7 @@ const EditStation = (props) => {
       const res = await axios.get(URL);
       let geocode = res.data;
       const latlang = geocode.results[0].access_points[0].location;
-      console.log(res.data);
+
       setMarkerPosition([latlang.latitude, latlang.longitude]);
     } catch (err) {
       console.log(err.msg);
@@ -220,7 +220,6 @@ const EditStation = (props) => {
                   <Typography variant="h6">
                     Provide your station details
                   </Typography>
-
                   <Button
                     variant="contained"
                     color="primary"
@@ -306,7 +305,6 @@ const EditStation = (props) => {
                     type="number"
                   />
                 </Box>
-
                 <Box className={classes.inputs}>
                   <FormControl
                     variant="outlined"

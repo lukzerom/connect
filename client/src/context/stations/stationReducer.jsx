@@ -64,6 +64,7 @@ export default (state, action) => {
         ),
         loading: false,
       };
+
     default:
       return state;
   }

@@ -11,7 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   vehiclesWrapper: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f4f6ff",
     minHeight: "100vh",
     padding: "0 10vw",
   },
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: "#127681",
+  },
+  noVehicles: {
+    color: "#127681",
+    width: "100%",
   },
   loading: {
     margin: "10rem auto",
@@ -62,13 +66,17 @@ const MyVehicles = () => {
       <Divider />
 
       {loading ? (
-        <Grid container classNames={classes.carContainer}>
+        <Grid container className={classes.carContainer}>
           <CircularProgress color="primary" className={classes.loading} />
         </Grid>
       ) : (
-        <Grid container classNames={classes.carContainer}>
-          {cars === [] ? (
-            <Typography variant="h1" className={classes.title}>
+        <Grid container className={classes.carContainer}>
+          {cars.length === 0 ? (
+            <Typography
+              variant="h6"
+              align="center"
+              className={classes.noVehicles}
+            >
               Add your first vehicle :)
             </Typography>
           ) : (

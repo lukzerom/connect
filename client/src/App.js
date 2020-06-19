@@ -25,6 +25,7 @@ import AddStation from "./components/pages/AddStation";
 import EditStation from "./components/pages/EditStation";
 import AddVehicle from "./components/pages/AddVehicle";
 import EditVehicle from "./components/pages/EditVehicle";
+import Footer from "./components/layout/Footer";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -95,6 +96,7 @@ function App() {
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                       </Switch>
+                      <Footer />
                     </Router>
                   </CarState>
                 </StationState>

@@ -58,7 +58,7 @@ const ReservationDialog = () => {
     addReservation,
   } = reservationContext;
 
-  const { station } = stationContext;
+  const { station, getAvailableStations } = stationContext;
 
   useEffect(() => {});
 
@@ -73,7 +73,7 @@ const ReservationDialog = () => {
     toggleReservationModal(false);
   };
 
-  const handleBook = () => {
+  const handleBook = async () => {
     let reservation = {
       timeStampFrom: dateFrom,
       timeStampTo: dateTo,
@@ -89,9 +89,12 @@ const ReservationDialog = () => {
       }, 5000);
       return;
     }
-
-    addReservation(reservation);
     toggleReservationModal(false);
+    await addReservation(reservation);
+    await getAvailableStations(
+      reservation.timeStampFrom,
+      reservation.timeStampTo
+    );
   };
 
   return (

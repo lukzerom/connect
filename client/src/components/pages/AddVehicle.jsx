@@ -268,8 +268,8 @@ const AddVehicle = (props) => {
                 >
                   {plugins.map((plugin, i) => {
                     return (
-                      <Box className={classes.miniPlugin}>
-                        <ChargerIcon key={i} plugin={plugin} />
+                      <Box className={classes.miniPlugin} key={i}>
+                        <ChargerIcon plugin={plugin} />
                       </Box>
                     );
                   })}

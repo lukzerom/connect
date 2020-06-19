@@ -11,7 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   stationsWrapper: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f4f6ff",
     minHeight: "100vh",
     padding: "0 10vw",
   },
@@ -65,7 +65,7 @@ const MyStations = () => {
         </Typography>
       ) : (
         <Box>
-          {userstations === null ? (
+          {userstations.length === 0 ? (
             <Typography variant="h6" align="center" className={classes.title}>
               Add your first station :)
             </Typography>

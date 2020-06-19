@@ -43,7 +43,6 @@ const ChargerMap = () => {
   };
 
   const onViewportChanged = (viewport) => {
-    console.log(animateflag);
     setZoom(viewport.zoom);
     setPosition(viewport.center);
     animateflag = false;

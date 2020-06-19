@@ -133,6 +133,9 @@ const AddVehicle = (props) => {
   };
 
   const handlePushPlugin = () => {
+    if (!plugin) {
+      return;
+    }
     if (plugins.length >= 2) {
       return setAlert("Your vehicle can have maximum 2 plugins", "error");
     }
@@ -269,8 +272,11 @@ const AddVehicle = (props) => {
                 >
                   {plugins.map((plugin, i) => {
                     return (
-                      <Box className={classes.miniPlugin}>
-                        <ChargerIcon key={i} plugin={plugin} />
+                      <Box
+                        className={classes.miniPlugin}
+                        key={`${editedCar._id}_${i}`}
+                      >
+                        <ChargerIcon plugin={plugin} />
                       </Box>
                     );
                   })}

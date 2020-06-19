@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import ReservationContext from "../../context/reservations/reservationContext";
@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import EmojiTransportationIcon from "@material-ui/icons/EmojiTransportation";
 import moment from "moment";
@@ -96,25 +95,25 @@ const ReservationCard = ({ reservation }) => {
   const verification = (accepted, rejected) => {
     if (!accepted && !rejected) {
       return (
-        <Box className={classes.acceptance}>
+        <Typography display="inline" className={classes.acceptance}>
           <UpdateIcon className={classes.smallIcon} /> Pending
-        </Box>
+        </Typography>
       );
     }
 
     if (accepted) {
       return (
-        <Box className={classes.green}>
+        <Typography display="inline" className={classes.green}>
           <CheckIcon className={classes.smallIcon} /> Accepted
-        </Box>
+        </Typography>
       );
     }
 
     if (rejected) {
       return (
-        <Box className={classes.red}>
+        <Typography display="inline" className={classes.red}>
           <CancelIcon className={classes.smallIcon} /> Rejected
-        </Box>
+        </Typography>
       );
     }
   };
@@ -138,23 +137,23 @@ const ReservationCard = ({ reservation }) => {
                 <EmojiTransportationIcon className={classes.icon} />
               </Grid>
 
-              <Box>
+              <Fragment>
                 <Typography className={classes.title}>
                   {reservation.stationCity}
                 </Typography>
                 <Typography color="textSecondary" variant="caption">
                   {reservation.stationStreet}
                 </Typography>
-              </Box>
+              </Fragment>
             </Grid>
             <Divider className={classes.divider} />
             <Grid container>
-              <Grid xs={6}>
+              <Grid xs={6} item>
                 <Typography align="center">
                   <strong>Date from: </strong> {from}
                 </Typography>
               </Grid>
-              <Grid xs={6}>
+              <Grid xs={6} item>
                 <Typography align="center">
                   <strong>Date to :</strong> {to}
                 </Typography>
@@ -163,25 +162,26 @@ const ReservationCard = ({ reservation }) => {
             <Divider className={classes.divider} />
 
             <Grid container>
-              <Grid xs={6}>
+              <Grid xs={6} item>
                 <Typography align="center">
                   <strong>Owner:</strong> {reservation.ownerName}, Tel:{" "}
                   {reservation.ownerPhone}{" "}
                 </Typography>
               </Grid>
-              <Grid xs={6}>
-                <Typography align="center">
-                  Verification:{" "}
+              <Grid xs={6} item>
+                <Grid align="center">
+                  <Typography display="inline">Verification: </Typography>
+
                   {verification(
                     reservation.isOwnerAccepted,
                     reservation.isOwnerRejected
                   )}
-                </Typography>
+                </Grid>
               </Grid>
             </Grid>
             <Divider className={classes.divider} />
             <Grid container>
-              <Grid xs={12}>
+              <Grid xs={12} item>
                 <Typography align="center">
                   Prepare <strong>{reservation.fullPrice}</strong> euros in
                   cash, please

@@ -81,7 +81,7 @@ const UserStation = ({ station }) => {
               <Grid item xs={2}>
                 <ChargerIcon plugin={station.plugin} />
               </Grid>
-              <Grid xs={6}>
+              <Grid item xs={6}>
                 <Box className={classes.adressBox}>
                   <Typography variant="h6">{station.name}</Typography>
                   <Typography variant="caption">

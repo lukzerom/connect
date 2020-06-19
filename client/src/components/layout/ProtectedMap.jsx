@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useContext } from "react";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import StationContext from "../../context/stations/stationContext";
 import bolt from "../../assets/bolt.svg";
-import L, { panTo } from "leaflet";
+import L from "leaflet";
 
 const myIcon = L.icon({
   iconUrl: bolt,
@@ -16,22 +16,18 @@ let animateflag = false;
 const ChargerMap = () => {
   const stationContext = useContext(StationContext);
   const {
-    stations,
-    getStations,
     position,
     setPosition,
     setZoom,
     zoom,
     setStation,
-    getAvailableStations,
     avaiableStations,
   } = stationContext;
-  useEffect(() => {}, []);
 
   const changePosition = (e) => {
     animateflag = true;
     let pickedStation = avaiableStations.filter(
-      (station) => station._id == e.target.options.id
+      (station) => station._id === e.target.options.id
     );
 
     let lat = Number(pickedStation[0].latitude);
@@ -88,23 +84,3 @@ const ChargerMap = () => {
 };
 
 export default ChargerMap;
-
-{
-  /* <Map
-center={[50, 10]}
-zoom={6}
-maxZoom={10}
-attributionControl={true}
-zoomControl={true}
-doubleClickZoom={true}
-scrollWheelZoom={true}
-dragging={true}
-animate={true}
-easeLinearity={0.35}
->
-<TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-<Marker position={[50, 10]}>
-  <Popup>Popup for any custom information.</Popup>
-</Marker>
-</Map> */
-}

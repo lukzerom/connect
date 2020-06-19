@@ -1,11 +1,9 @@
-import React, { useContext, Fragment, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import ReservationContext from "../../context/reservations/reservationContext";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import { Typography, Divider, Button, Grid } from "@material-ui/core";
-import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
-import { Link } from "react-router-dom";
+import { Typography, Divider, Grid } from "@material-ui/core";
 import ReservationCard from "../layout/ReservationCard";
 import ReservationCardStation from "../layout/ReservationCardStation";
 import MapDialog from "../layout/MapDialog";
@@ -46,13 +44,11 @@ const MyReservations = () => {
   const reservationContext = useContext(ReservationContext);
   const classes = useStyles();
 
-  const { isAuthenticated, logout, user } = authContext;
   const {
     getUserReservationsAsDriver,
     getUserReservationsAsStation,
     userReservationsAsDriver,
     userReservationsAsStation,
-    loadingUserStations,
     loadingUserTrips,
   } = reservationContext;
 
@@ -62,9 +58,6 @@ const MyReservations = () => {
     getUserReservationsAsStation();
     //eslint-disable-next-line
   }, []);
-
-  // getUserReservationsAsDriver();
-  // getUserReservationsAsStation();
 
   return (
     <>

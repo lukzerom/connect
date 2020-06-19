@@ -44,8 +44,6 @@ const ReservationState = (props) => {
     isModalOpen,
     isReservationModalOpen,
     carId,
-    dateTo,
-    dateFrom,
     isMapModalOpen,
     error,
     success,

@@ -2,19 +2,13 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import Plugin from "../../assets/plugin.jpg";
-import LocalCafeIcon from "@material-ui/icons/LocalCafe";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
-import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
-import Rating from "@material-ui/lab/Rating";
 import StationContext from "../../context/stations/stationContext";
 import ReservationContext from "../../context/reservations/reservationContext";
 import ChargerIcon from "./ChargerIcon";
 import Extras from "../layout/Extras";
-import moment, { diff } from "moment";
+import moment from "moment";
 
 import {
-  Container,
   Button,
   Typography,
   Card,
@@ -89,7 +83,7 @@ const ChargerDetails = () => {
     toggleReservationModal,
   } = reservationContext;
 
-  const { stations, station, setStation } = stationContext;
+  const { station } = stationContext;
   const classes = useStyles();
 
   const from = moment(dateFrom).format("YYYY-MM-DD HH:00");

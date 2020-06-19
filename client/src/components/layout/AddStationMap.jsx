@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import StationContext from "../../context/stations/stationContext";
 import bolt from "../../assets/bolt.svg";
-import L, { marker, getLatLng } from "leaflet";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import L from "leaflet";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   map: { width: "100%", height: "100%" },
@@ -16,7 +16,7 @@ const myIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const AddStationMap = ({ longitude, latitude }) => {
+const AddStationMap = () => {
   const stationContext = useContext(StationContext);
   const classes = useStyles();
 
@@ -24,15 +24,9 @@ const AddStationMap = ({ longitude, latitude }) => {
     //eslint-disable-next-line
   }, []);
 
-  const {
-    stations,
-    getStations,
-    markerPosition,
-    setMarkerPosition,
-  } = stationContext;
+  const { markerPosition, setMarkerPosition } = stationContext;
 
   const onDragend = (e) => {
-    console.log(e.target.getLatLng());
     setMarkerPosition(e.target.getLatLng());
   };
 

@@ -1,11 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import AuthContext from "../../context/auth/authContext";
-import setAuthToken from "../../utils/setAuthToken";
-import StationContext from "../../context/stations/stationContext";
 import CarContext from "../../context/cars/carContext";
 import AlertContext from "../../context/alert/alertContext";
-import axios from "axios";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
   Box,
   Grid,
@@ -17,16 +13,9 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  FormControlLabel,
-  Checkbox,
   Button,
-  IconButton,
 } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AddStationMap from "../layout/AddStationMap";
-import MapIcon from "@material-ui/icons/Map";
-import { GOOGLE_API_KEY } from "../API/API_KEYS";
-import { SET_ALERT } from "../../context/types";
+import { makeStyles } from "@material-ui/core/styles";
 import ChargerIcon from "../layout/ChargerIcon";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import EditIcon from "@material-ui/icons/Edit";
@@ -89,7 +78,6 @@ const AddVehicle = (props) => {
   const carContext = useContext(CarContext);
   const classes = useStyles();
 
-  const { isAuthenticated, logout, user, token } = authContext;
   const { setAlert } = alertContext;
   const { updateCar, editedCar } = carContext;
 

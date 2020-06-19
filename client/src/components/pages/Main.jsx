@@ -15,7 +15,10 @@ const Main = () => {
             Connected...
           </Typography>
           <Typography variant="h4" gutterBottom className="yellow">
-            Better way of charging <span> ⚡</span>
+            Better way of charging{" "}
+            <span role="img" aria-label="Thunder Emoi">
+              ⚡
+            </span>
           </Typography>
           <Typography variant="body1" gutterBottom className="blue">
             Connected is a web platform for electric car users and private

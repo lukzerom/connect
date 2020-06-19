@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import StarsIcon from "@material-ui/icons/Stars";
 import { Typography } from "@material-ui/core";
 

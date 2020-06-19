@@ -1,9 +1,7 @@
-import React, { useContext, Fragment, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import StationContext from "../../context/stations/stationContext";
-import UserStation from "../layout/UserStation";
 import CarContext from "../../context/cars/carContext";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import { Typography, Divider, Button, Grid } from "@material-ui/core";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
@@ -39,7 +37,7 @@ const MyVehicles = () => {
   const classes = useStyles();
 
   const { getCars, cars, loading } = carContext;
-  const { isAuthenticated, logout, user } = authContext;
+
   useEffect(() => {
     authContext.loadUser();
     getCars();

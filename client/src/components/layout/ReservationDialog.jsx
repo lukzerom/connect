@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,7 +10,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
-import DatePicker from "./DatePicker";
 import ReservationContext from "../../context/reservations/reservationContext";
 import StationContext from "../../context/stations/stationContext";
 import CarSelect from "../layout/CarSelect";
@@ -59,7 +58,7 @@ const ReservationDialog = () => {
     addReservation,
   } = reservationContext;
 
-  const { getAvailableStations, station } = stationContext;
+  const { station } = stationContext;
 
   useEffect(() => {});
 

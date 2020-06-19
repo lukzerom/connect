@@ -17,7 +17,6 @@ import {
   DELETE_STATION,
   GET_AVAIABLE_STATIONS,
 } from "../types";
-import { set } from "mongoose";
 
 const StationState = (props) => {
   const initialState = {
@@ -57,7 +56,6 @@ const StationState = (props) => {
   };
 
   //Get available stations in picked time range
-
   const getAvailableStations = async (from, to) => {
     if (from === null) from = new Date().setMinutes(0);
     if (to === null) to = new Date().setMinutes(0);
@@ -80,7 +78,6 @@ const StationState = (props) => {
   };
 
   //Set map position
-
   const setPosition = (position) => {
     dispatch({
       type: SET_POSITION,
@@ -104,6 +101,7 @@ const StationState = (props) => {
     });
   };
 
+  //Get user stations
   const getUserStations = async () => {
     try {
       const res = await axios.get("/api/stations/userstations");
@@ -113,6 +111,7 @@ const StationState = (props) => {
     }
   };
 
+  //Set marker position
   const setMarkerPosition = (markerPosition) => {
     dispatch({
       type: SET_MARKER_POSITION,
@@ -120,6 +119,7 @@ const StationState = (props) => {
     });
   };
 
+  //Add station
   const addStation = async (station) => {
     const config = {
       headers: {
@@ -136,7 +136,6 @@ const StationState = (props) => {
   };
 
   //Update station
-
   const updateStation = async (station) => {
     const config = {
       headers: {
@@ -156,6 +155,7 @@ const StationState = (props) => {
     }
   };
 
+  //Delete station
   const deleteStation = async (id) => {
     try {
       await axios.delete(`/api/stations/${id}`);
@@ -171,26 +171,26 @@ const StationState = (props) => {
         stations: state.stations,
         stationMapModal: state.stationMapModal,
         loading: state.loading,
-        getStations: getStations,
-        getStation: getStation,
         position: state.position,
-        setPosition: setPosition,
-        setZoom: setZoom,
         zoom: state.zoom,
         error: state.error,
-        setStation: setStation,
         station: state.station,
-        getUserStations: getUserStations,
         userstations: state.userstations,
-        setMarkerPosition: setMarkerPosition,
         markerPosition: state.markerPosition,
-        addStation: addStation,
         editStation: state.editStation,
+        avaiableStations: state.avaiableStations,
+        getAvailableStations,
+        getStations: getStations,
+        getStation: getStation,
         setEditStation: setEditStation,
         updateStation: updateStation,
         deleteStation: deleteStation,
-        avaiableStations: state.avaiableStations,
-        getAvailableStations,
+        addStation: addStation,
+        setMarkerPosition: setMarkerPosition,
+        getUserStations: getUserStations,
+        setStation: setStation,
+        setPosition: setPosition,
+        setZoom: setZoom,
       }}
     >
       {props.children}

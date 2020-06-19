@@ -1,9 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import ReservationContext from "../../context/reservations/reservationContext";
-import CarContext from "../../context/cars/carContext";
 import StationContext from "../../context/stations/stationContext";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
@@ -11,10 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
-import ChargerIcon from "./ChargerIcon";
 import EmojiTransportationIcon from "@material-ui/icons/EmojiTransportation";
-import { Link } from "react-router-dom";
 import moment from "moment";
 import UpdateIcon from "@material-ui/icons/Update";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -87,18 +82,11 @@ const useStyles = makeStyles({
 const ReservationCard = ({ reservation }) => {
   const classes = useStyles();
   const reservationContext = useContext(ReservationContext);
-  const carContext = useContext(CarContext);
   const stationContext = useContext(StationContext);
 
-  const { deleteCar, setCar, getCar, oneCar } = carContext;
-  const { setMarkerPosition, getStation, station } = stationContext;
+  const { getStation } = stationContext;
 
-  const {
-    deleteReservation,
-    getUserReservationsAsDriver,
-    getUserReservationsAsCharger,
-    toggleMapModal,
-  } = reservationContext;
+  const { deleteReservation, toggleMapModal } = reservationContext;
 
   //   getCar(reservation.car);
 

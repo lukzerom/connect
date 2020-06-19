@@ -1,20 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import React, { useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import Dialog from "@material-ui/core/Dialog";
 import { DialogActions, DialogContent, Box } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Alert from "@material-ui/lab/Alert";
-import DatePicker from "./DatePicker";
 import ReservationContext from "../../context/reservations/reservationContext";
-import StationContext from "../../context/stations/stationContext";
-import CarSelect from "../layout/CarSelect";
-import moment from "moment";
 import ShowStationMap from "./ShowStationMap";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,12 +43,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MapDialog = () => {
-  const [alert, setAlert] = useState(false);
   const reservationContext = useContext(ReservationContext);
-  const stationContext = useContext(StationContext);
 
   const { isMapModalOpen, toggleMapModal } = reservationContext;
-  const { station, setMarkerPosition } = stationContext;
 
   const classes = useStyles();
 

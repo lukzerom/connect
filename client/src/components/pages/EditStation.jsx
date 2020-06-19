@@ -4,7 +4,6 @@ import setAuthToken from "../../utils/setAuthToken";
 import StationContext from "../../context/stations/stationContext";
 import AlertContext from "../../context/alert/alertContext";
 import axios from "axios";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
   Box,
   Grid,
@@ -20,11 +19,10 @@ import {
   Checkbox,
   Button,
 } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
 import { GOOGLE_API_KEY } from "../API/API_KEYS";
-import { SET_ALERT } from "../../context/types";
 import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
@@ -69,21 +67,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditStation = (props) => {
-  const charger = "Charger";
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
   const alertContext = useContext(AlertContext);
   const classes = useStyles();
 
-  const { isAuthenticated, logout, user, token } = authContext;
+  const { token } = authContext;
   const { setAlert } = alertContext;
   const {
-    userstations,
     getUserStations,
     markerPosition,
-    getCurrentStation,
     setMarkerPosition,
-    addStation,
     editStation,
     updateStation,
   } = stationContext;
@@ -126,8 +120,6 @@ const EditStation = (props) => {
     pictureUrl,
     price,
     plugin,
-    longitude,
-    latitude,
     drive,
     bed,
     bike,
@@ -189,8 +181,8 @@ const EditStation = (props) => {
       picture: pictureUrl,
       price,
       plugin,
-      longitude: markerPosition.lng,
-      latitude: markerPosition.lat,
+      latitude: markerPosition[0],
+      longitude: markerPosition[1],
       additives: extras,
     };
 

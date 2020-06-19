@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AuthContext from "../../context/auth/authContext";
 import ReservationContext from "../../context/reservations/reservationContext";
@@ -10,7 +10,6 @@ import DatePickerDialog from "../layout/DatePickerDialog";
 import ReservationDialog from "../layout/ReservationDialog";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { SET_ERROR } from "../../context/types";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
@@ -30,7 +29,6 @@ const ChargersMap = () => {
   const [openError, setOpenError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
 
-  const { isAuthenticated, logout, user } = authContext;
   const { error, success, setError, setSuccess } = reservationContext;
   const { getAvailableStations } = stationContext;
 

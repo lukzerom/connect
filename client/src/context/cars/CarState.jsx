@@ -58,7 +58,6 @@ const CarState = (props) => {
   };
 
   //Update car
-
   const updateCar = async (car) => {
     const config = {
       headers: {
@@ -74,6 +73,7 @@ const CarState = (props) => {
     }
   };
 
+  //Delete Car
   const deleteCar = async (id) => {
     try {
       await axios.delete(`/api/cars/${id}`);
@@ -82,6 +82,8 @@ const CarState = (props) => {
       dispatch({ type: CAR_ERROR, payload: err.res.msg });
     }
   };
+
+  //Get choosen car
   const getCar = async (id) => {
     try {
       await axios.get(`/api/cars/${id}`);

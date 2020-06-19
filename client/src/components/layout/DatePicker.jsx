@@ -1,6 +1,5 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import { DateTimePicker } from "@material-ui/pickers";
 import ReservationContext from "../../context/reservations/reservationContext";

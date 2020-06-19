@@ -1,10 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import AuthContext from "../../context/auth/authContext";
-import setAuthToken from "../../utils/setAuthToken";
-import StationContext from "../../context/stations/stationContext";
 import CarContext from "../../context/cars/carContext";
 import AlertContext from "../../context/alert/alertContext";
-import axios from "axios";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
   Box,
@@ -17,20 +14,13 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  FormControlLabel,
-  Checkbox,
   Button,
-  IconButton,
 } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AddStationMap from "../layout/AddStationMap";
-import MapIcon from "@material-ui/icons/Map";
-import { GOOGLE_API_KEY } from "../API/API_KEYS";
-import { SET_ALERT } from "../../context/types";
+import { makeStyles } from "@material-ui/core/styles";
 import ChargerIcon from "../layout/ChargerIcon";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   stationsWrapper: {
     backgroundColor: "#f5f5f5",
     minHeight: "100vh",
@@ -88,7 +78,6 @@ const AddVehicle = (props) => {
   const carContext = useContext(CarContext);
   const classes = useStyles();
 
-  const { isAuthenticated, logout, user, token } = authContext;
   const { setAlert } = alertContext;
   const { addCar } = carContext;
 
@@ -116,7 +105,7 @@ const AddVehicle = (props) => {
   };
 
   const handleSubmit = () => {
-    if (!brand || !model || !registration || plugins.length <= 0) {
+    if (!brand || !model || !registration || plugins.length === 0) {
       setState({ ...state, errors: true });
       return setAlert("Please provide required informations", "error");
     }

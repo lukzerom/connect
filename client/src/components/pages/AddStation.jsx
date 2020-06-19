@@ -20,11 +20,10 @@ import {
   Checkbox,
   Button,
 } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
 import { GOOGLE_API_KEY } from "../API/API_KEYS";
-import { SET_ALERT } from "../../context/types";
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -68,16 +67,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddStation = (props) => {
-  const charger = "Charger";
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
   const alertContext = useContext(AlertContext);
   const classes = useStyles();
 
-  const { isAuthenticated, logout, user, token } = authContext;
+  const { token } = authContext;
   const { setAlert } = alertContext;
   const {
-    userstations,
     getUserStations,
     markerPosition,
     setMarkerPosition,
@@ -119,8 +116,6 @@ const AddStation = (props) => {
     pictureUrl,
     price,
     plugin,
-    longitude,
-    latitude,
     drive,
     bed,
     bike,
@@ -149,12 +144,11 @@ const AddStation = (props) => {
     delete axios.defaults.headers.common["x-auth-token"];
     try {
       const res = await axios.get(URL);
-      let geocode = res.data;
-      console.log(geocode);
+      const geocode = res.data;
+
       const results = geocode.results[0];
-      console.log(results);
       const latlang = results.geometry.location;
-      console.log(latlang);
+
       setMarkerPosition([latlang.lat, latlang.lng]);
     } catch (err) {
       console.log(err.msg);
@@ -198,7 +192,7 @@ const AddStation = (props) => {
       longitude: markerPosition[1],
       additives: extras,
     };
-    console.log(station);
+
     addStation(station);
 
     props.history.push("/my-stations");

@@ -1,19 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import ReservationContext from "../../context/reservations/reservationContext";
-import CarContext from "../../context/cars/carContext";
-import StationContext from "../../context/stations/stationContext";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
-import ChargerIcon from "./ChargerIcon";
-import { Link } from "react-router-dom";
 import EvStationIcon from "@material-ui/icons/EvStation";
 import moment from "moment";
 import UpdateIcon from "@material-ui/icons/Update";
@@ -92,21 +86,9 @@ const useStyles = makeStyles({
 const ReservationCard = ({ reservation }) => {
   const classes = useStyles();
   const reservationContext = useContext(ReservationContext);
-  const carContext = useContext(CarContext);
-  const stationContext = useContext(StationContext);
+
   let from = moment(reservation.timeStampFrom).format("YYYY-MM-DD HH:00");
   let to = moment(reservation.timeStampTo).format("YYYY-MM-DD HH:00");
-  const duration = moment.duration(moment(to).diff(moment(from)));
-  const durationHours = Math.round(duration.asHours());
-
-  const {
-    deleteCar,
-    setCar,
-    getCar,
-    oneCar,
-    getUserReservationsAsDriver,
-    getUserReservationsAsCharger,
-  } = carContext;
 
   const { confirmReservation, rejectReservation } = reservationContext;
 

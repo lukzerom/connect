@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useContext } from "react";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import StationContext from "../../context/stations/stationContext";
 import bolt from "../../assets/bolt.svg";
-import L, { marker, getLatLng } from "leaflet";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import L from "leaflet";
+import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,23 +17,12 @@ const myIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const ShowStationMap = ({ longitude, latitude }) => {
+const ShowStationMap = () => {
   const stationContext = useContext(StationContext);
   const classes = useStyles();
 
-  useEffect(() => {
-    //eslint-disable-next-line
-  }, []);
+  const { stationMapModal } = stationContext;
 
-  const {
-    stations,
-    stationMapModal,
-    getStations,
-    markerPosition,
-    setMarkerPosition,
-  } = stationContext;
-
-  // [station.latitude, station.longitude]
   return (
     <Grid item xs={12} className={classes.map}>
       <Map

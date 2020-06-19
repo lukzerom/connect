@@ -1,15 +1,15 @@
-import React, { useContext, Fragment, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import StationContext from "../../context/stations/stationContext";
 import UserStation from "../layout/UserStation";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import { Typography, Divider, Button, Grid } from "@material-ui/core";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   stationsWrapper: {
     backgroundColor: "#f5f5f5",
     minHeight: "100vh",
@@ -33,7 +33,7 @@ const MyStations = () => {
   const authContext = useContext(AuthContext);
   const stationContext = useContext(StationContext);
 
-  const { isAuthenticated, logout, user, loadUser } = authContext;
+  const { loadUser } = authContext;
   const { userstations, getUserStations, loading } = stationContext;
 
   useEffect(() => {

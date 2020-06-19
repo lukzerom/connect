@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,7 +12,6 @@ import Alert from "@material-ui/lab/Alert";
 import DatePicker from "./DatePicker";
 import ReservationContext from "../../context/reservations/reservationContext";
 import StationContext from "../../context/stations/stationContext";
-import Moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -43,22 +42,12 @@ const DatePickerDialog = () => {
   const reservationContext = useContext(ReservationContext);
   const stationContext = useContext(StationContext);
 
-  const {
-    dateFrom,
-    dateTo,
-    setDateFrom,
-    setDateTo,
-    isModalOpen,
-    toggleModal,
-  } = reservationContext;
+  const { dateFrom, dateTo, isModalOpen, toggleModal } = reservationContext;
 
   const { getAvailableStations } = stationContext;
 
   const classes = useStyles();
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
   const handleClose = () => {
     toggleModal(false);
   };
@@ -78,9 +67,6 @@ const DatePickerDialog = () => {
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

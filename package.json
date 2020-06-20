@@ -1,5 +1,5 @@
 {
-  "name": "contact_keeper",
+  "name": "connect",
   "version": "1.0.0",
   "description": "EV",
   "main": "server.js",
@@ -9,7 +9,7 @@
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build"
   },
   "author": "Lukasz Zeromski",
   "license": "MIT",

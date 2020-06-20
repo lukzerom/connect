@@ -31,7 +31,11 @@ export default (state, action) => {
     case GET_USER_STATIONS:
       return { ...state, userstations: action.payload, loading: false };
     case SET_MARKER_POSITION:
-      return { ...state, markerPosition: action.payload, loading: false };
+      return {
+        ...state,
+        markerPosition: { lat: action.payload[0], lng: action.payload[1] },
+        loading: false,
+      };
 
     case SET_EDIT_STATION:
       return { ...state, editStation: action.payload, loading: false };
@@ -46,7 +50,7 @@ export default (state, action) => {
     case EDIT_STATION:
       return {
         ...state,
-        userstations: [action.payload, ...state.userstations],
+        userstations: [...state.userstations],
         loading: false,
       };
 

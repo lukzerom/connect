@@ -27,7 +27,7 @@ const AddStationMap = () => {
   const { markerPosition, setMarkerPosition } = stationContext;
 
   const onDragend = (e) => {
-    setMarkerPosition(e.target.getLatLng());
+    setMarkerPosition([e.target.getLatLng().lat, e.target.getLatLng().lng]);
   };
 
   return (

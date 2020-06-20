@@ -22,7 +22,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
-import { GOOGLE_API_KEY } from "../API/API_KEYS";
 import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
@@ -143,9 +142,7 @@ const EditStation = (props) => {
   };
 
   const getLatLang = async () => {
-    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+${country}&key=${
-      GOOGLE_API_KEY || process.env.GOOGLE_API_KEY
-    }`;
+    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+${country}&key=${process.env.GOOGLE_API_KEY}`;
     delete axios.defaults.headers.common["x-auth-token"];
     try {
       const res = await axios.get(URL);

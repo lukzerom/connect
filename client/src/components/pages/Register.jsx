@@ -43,7 +43,7 @@ const Register = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/dashboard");
+      props.history.push("/");
     }
 
     if (error === "User already exist") {

@@ -142,7 +142,7 @@ const AddStation = (props) => {
     const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+${country}&key=${
       GOOGLE_API_KEY || process.env.GOOGLE_API_KEY
     }`;
-    console.log(URL);
+
     delete axios.defaults.headers.common["x-auth-token"];
     try {
       const res = await axios.get(URL);

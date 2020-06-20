@@ -145,7 +145,7 @@ const EditStation = (props) => {
   const getLatLangLocal = async () => {
     const adress = `${streetName}+${streetNumber}+${city}+${country}`;
     const cleanAdress = utf8.encode(adress.replace("/", "+"));
-    console.log(cleanAdress);
+
     getLatLang(cleanAdress);
   };
 

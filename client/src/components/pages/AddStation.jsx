@@ -140,7 +140,7 @@ const AddStation = (props) => {
   const getLatLangLocal = async () => {
     const adress = `${streetName}+${streetNumber}+${city}+${country}`;
     const cleanAdress = utf8.encode(adress.replace("/", "+"));
-    console.log(cleanAdress);
+
     getLatLang(cleanAdress);
   };
 
@@ -166,7 +166,6 @@ const AddStation = (props) => {
       setState({ ...state, errors: true });
       return setAlert("Please provide required informations", "error");
     }
-    console.log(markerPosition);
 
     const station = {
       name,
@@ -181,7 +180,7 @@ const AddStation = (props) => {
       longitude: markerPosition.lng,
       additives: extras,
     };
-    console.log(station);
+
     addStation(station);
 
     props.history.push("/my-stations");

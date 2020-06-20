@@ -59,8 +59,8 @@ function App() {
                       <Nav />
                       <Alerts />
                       <Switch>
-                        <PrivateRoute exact path="/" component={Main} />
                         <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/" component={Main} />
                         <PrivateRoute
                           path="/my-vehicles"
                           component={MyVehicles}

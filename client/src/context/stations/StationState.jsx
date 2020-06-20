@@ -74,7 +74,7 @@ const StationState = (props) => {
   const getLatLang = async (adress) => {
     try {
       const res = await axios.get(`/api/stations/getlatlang/${adress}`);
-      console.log(res);
+
       dispatch({ type: GET_LATLANG, payload: res.data });
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });

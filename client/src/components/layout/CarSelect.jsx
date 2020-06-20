@@ -29,7 +29,6 @@ const CarSelect = () => {
   });
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setReservationCar(e.target.value);
   };
 

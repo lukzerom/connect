@@ -48,7 +48,6 @@ export default (state, action) => {
       };
 
     case SET_DATE_FROM:
-      console.log(action.payload);
       return { ...state, dateFrom: action.payload, loading: false };
     case SET_DATE_TO:
       return { ...state, dateTo: action.payload, loading: false };

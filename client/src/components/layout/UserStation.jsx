@@ -59,7 +59,6 @@ const UserStation = ({ station }) => {
 
   const handleEdit = (id) => {
     let station = userstations.filter((station) => {
-      console.log(station._id);
       return station._id === id;
     });
 

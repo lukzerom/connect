@@ -70,7 +70,7 @@ router.post('/:id', [auth], async (req, res) => {
         timeStampTo,
         carId,
     } = req.body;
-    console.log(carId, typeof carId)
+
 
     let station = await Station.findById(req.params.id);
     let car = await Car.findById(carId)
@@ -148,7 +148,7 @@ router.post('/:id', [auth], async (req, res) => {
 
         const reservation = await newReservation.save();
 
-        console.log(reservation)
+
         res.json(reservation);
     } catch (err) {
         console.error(err.message);
@@ -164,7 +164,7 @@ router.post('/:id', [auth], async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         let reservation = await Reservation.findById(req.params.id);
-        console.log(reservation)
+
         if (!reservation) {
             return res.status(404).json({
                 msg: 'Reservation not found'

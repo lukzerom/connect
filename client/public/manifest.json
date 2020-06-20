@@ -1,14 +1,13 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Connect",
+  "name": "Connect application",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "bolticon.png",
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "bolticon.png",
       "type": "image/png",
       "sizes": "192x192"
     },

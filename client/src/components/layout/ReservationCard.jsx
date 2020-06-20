@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import ReservationContext from "../../context/reservations/reservationContext";
@@ -137,14 +137,14 @@ const ReservationCard = ({ reservation }) => {
                 <EmojiTransportationIcon className={classes.icon} />
               </Grid>
 
-              <Fragment>
+              <Grid item>
                 <Typography className={classes.title}>
                   {reservation.stationCity}
                 </Typography>
                 <Typography color="textSecondary" variant="caption">
                   {reservation.stationStreet}
                 </Typography>
-              </Fragment>
+              </Grid>
             </Grid>
             <Divider className={classes.divider} />
             <Grid container>

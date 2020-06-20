@@ -23,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
 import EditIcon from "@material-ui/icons/Edit";
+import utf8 from "utf8";
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -79,6 +80,7 @@ const EditStation = (props) => {
     setMarkerPosition,
     editStation,
     updateStation,
+    getLatLang,
   } = stationContext;
 
   useEffect(() => {
@@ -141,18 +143,11 @@ const EditStation = (props) => {
     });
   };
 
-  const getLatLang = async () => {
-    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+${country}&key=${process.env.GOOGLE_API_KEY}`;
-    delete axios.defaults.headers.common["x-auth-token"];
-    try {
-      const res = await axios.get(URL);
-      let geocode = res.data;
-      const latlang = geocode.results[0].access_points[0].location;
-
-      setMarkerPosition([latlang.latitude, latlang.longitude]);
-    } catch (err) {
-      console.log(err.msg);
-    }
+  const getLatLangLocal = async () => {
+    const adress = `${streetName}+${streetNumber}+${city}+${country}`;
+    const cleanAdress = utf8.encode(adress.replace("/", "+"));
+    console.log(cleanAdress);
+    getLatLang(cleanAdress);
   };
 
   const handleSubmit = () => {
@@ -347,7 +342,7 @@ const EditStation = (props) => {
                   </FormControl>
                   <Button
                     variant="contained"
-                    onClick={getLatLang}
+                    onClick={getLatLangLocal}
                     startIcon={<MapIcon />}
                   >
                     Find on map

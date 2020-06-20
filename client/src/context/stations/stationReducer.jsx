@@ -12,6 +12,7 @@ import {
   DELETE_STATION,
   GET_AVAIABLE_STATIONS,
   GET_STATION,
+  GET_LATLANG,
 } from "../types";
 
 export default (state, action) => {
@@ -34,6 +35,13 @@ export default (state, action) => {
       return {
         ...state,
         markerPosition: { lat: action.payload[0], lng: action.payload[1] },
+        loading: false,
+      };
+
+    case GET_LATLANG:
+      return {
+        ...state,
+        markerPosition: { lat: action.payload.lat, lng: action.payload.lng },
         loading: false,
       };
 

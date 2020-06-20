@@ -1,6 +1,4 @@
-export const GET_ALL_STATIONS = 'GET_ALL_STATIONS'
-export const GET_STATION = 'GET_STATION'
-export const STATION_ERROR = 'STATION_ERROR'
+//Auth context
 export const AUTH_ERROR = 'AUTH_ERROR'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
@@ -9,8 +7,14 @@ export const REGISTER_FAIL = 'REGISTER_FAIL'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const USER_LOADED = 'USER_LOADED'
 export const LOGOUT = 'LOGOUT'
+
+//Alert context
 export const REMOVE_ALERT = 'REMOVE_ALERT'
 export const SET_ALERT = 'SET_ALERT'
+
+//Station context
+export const GET_ALL_STATIONS = 'GET_ALL_STATIONS'
+export const GET_STATION = 'GET_STATION'
 export const SET_POSITION = 'SET_POSITION'
 export const SET_MAP_ZOOM = 'SET_MAP_ZOOM'
 export const SET_CURRENT_STATION = 'SET_CURRENT_STATION'
@@ -21,6 +25,8 @@ export const SET_EDIT_STATION = 'SET_EDIT_STATION'
 export const EDIT_STATION = 'EDIT_STATION'
 export const DELETE_STATION = 'DELETE_STATION'
 export const GET_AVAIABLE_STATIONS = 'GET_AVAIABLE_STATIONS'
+export const STATION_ERROR = 'STATION_ERROR'
+export const GET_LATLANG = 'GET_LATLANG'
 
 
 //Car context

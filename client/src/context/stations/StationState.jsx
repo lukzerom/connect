@@ -16,6 +16,7 @@ import {
   EDIT_STATION,
   DELETE_STATION,
   GET_AVAIABLE_STATIONS,
+  GET_LATLANG,
 } from "../types";
 
 const StationState = (props) => {
@@ -64,6 +65,17 @@ const StationState = (props) => {
         `/api/stations/availablestations/${from}/${to}`
       );
       dispatch({ type: GET_AVAIABLE_STATIONS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: STATION_ERROR, payload: err.res.msg });
+    }
+  };
+
+  //Get choosen adress latlang
+  const getLatLang = async (adress) => {
+    try {
+      const res = await axios.get(`/api/stations/getlatlang/${adress}`);
+      console.log(res);
+      dispatch({ type: GET_LATLANG, payload: res.data });
     } catch (err) {
       dispatch({ type: STATION_ERROR, payload: err.res.msg });
     }
@@ -191,6 +203,7 @@ const StationState = (props) => {
         setStation: setStation,
         setPosition: setPosition,
         setZoom: setZoom,
+        getLatLang,
       }}
     >
       {props.children}

@@ -11,6 +11,7 @@ const Reservation = require('../models/Reservation');
 const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
+const axios = require('axios')
 
 
 // @route PUT api/stations/:id
@@ -92,6 +93,36 @@ router.get('/userstations', auth, async (req, res) => {
     });
 
     res.json(userstations);
+  } catch (err) {
+
+    res.status(500).send('Server error');
+  }
+});
+
+
+// @route GET api/stations/getlatlang
+// @desc Get all user statios
+// @access Private
+
+router.get('/getlatlang/:adress', auth, async (req, res) => {
+  try {
+
+    const {
+      adress
+    } = req.params
+
+
+    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=${process.env.GOOGLE_API_KEY}`;
+
+    const response = await axios.get(URL);
+
+    const geocode = response.data;
+    const results = geocode.results[0];
+    const latlang = results.geometry.location;
+
+    res.json(
+      latlang
+    );
   } catch (err) {
 
     res.status(500).send('Server error');

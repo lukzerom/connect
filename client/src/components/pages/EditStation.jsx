@@ -3,7 +3,6 @@ import AuthContext from "../../context/auth/authContext";
 import setAuthToken from "../../utils/setAuthToken";
 import StationContext from "../../context/stations/stationContext";
 import AlertContext from "../../context/alert/alertContext";
-import axios from "axios";
 import {
   Box,
   Grid,

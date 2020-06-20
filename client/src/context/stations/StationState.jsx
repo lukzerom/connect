@@ -27,8 +27,8 @@ const StationState = (props) => {
     position: [50.270873, 16.25341],
     zoom: 5,
     pickedStation: null,
-    userstations: null,
-    markerPosition: [50.270873, 16.25341],
+    userstations: [],
+    markerPosition: { lat: 50.270873, lng: 16.25341 },
     editStation: null,
     loading: true,
   };

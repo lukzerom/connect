@@ -181,8 +181,8 @@ const EditStation = (props) => {
       picture: pictureUrl,
       price,
       plugin,
-      latitude: markerPosition[0],
-      longitude: markerPosition[1],
+      latitude: markerPosition.lat,
+      longitude: markerPosition.lng,
       additives: extras,
     };
 

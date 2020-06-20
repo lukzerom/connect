@@ -188,11 +188,11 @@ const AddStation = (props) => {
       picture: pictureUrl,
       price,
       plugin,
-      latitude: markerPosition[0],
-      longitude: markerPosition[1],
+      latitude: markerPosition.lat,
+      longitude: markerPosition.lng,
       additives: extras,
     };
-
+    console.log(station);
     addStation(station);
 
     props.history.push("/my-stations");

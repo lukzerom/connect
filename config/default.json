@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://lukzerom:lukzerom123@cluster0-7eq1r.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://connectedmern:Connected123!@cluster0.aepms.azure.mongodb.net/Cluster0?retryWrites=true&w=majority",
   "jwtSecret": "secret"
 }

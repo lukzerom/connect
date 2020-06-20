@@ -23,6 +23,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import AddStationMap from "../layout/AddStationMap";
 import MapIcon from "@material-ui/icons/Map";
+require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   stationsWrapper: {
@@ -150,7 +151,7 @@ const AddStation = (props) => {
 
       setMarkerPosition([latlang.lat, latlang.lng]);
     } catch (err) {
-      console.log(err.msg);
+      console.log(err);
     }
   };
 

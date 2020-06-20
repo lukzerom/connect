@@ -13,7 +13,6 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
     "leaflet": "^1.6.0",
     "moment": "^2.26.0",
     "moment-range": "^4.0.2",
@@ -46,5 +45,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
 }

@@ -6,6 +6,7 @@ import StationContext from "../../context/stations/stationContext";
 import ReservationContext from "../../context/reservations/reservationContext";
 import ChargerIcon from "./ChargerIcon";
 import Extras from "../layout/Extras";
+import EvStationIcon from "@material-ui/icons/EvStation";
 import moment from "moment";
 
 import {
@@ -121,12 +122,17 @@ const ChargerDetails = () => {
             </Typography>
 
             <Divider variant="middle" className={classes.divider} />
-            <CardMedia
-              className={classes.media}
-              image={station.picture}
-              title="Station picture"
-              component="img"
-            />
+            {station.picture ? (
+              <CardMedia
+                className={classes.media}
+                image={station.picture}
+                title="Station picture"
+                component="img"
+              />
+            ) : (
+              <EvStationIcon className={classes.media} />
+            )}
+
             <Divider variant="middle" className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={6}>
